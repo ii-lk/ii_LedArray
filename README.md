@@ -1,1 +1,1 @@
-# CODBOTS_LedStip
+# CODBOTS_LedStrip
