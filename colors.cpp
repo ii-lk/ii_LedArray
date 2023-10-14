@@ -52,10 +52,26 @@ String Colors::getName(int index) {
   return color_names[index];
 }
 
+int Colors::getColorsCount(){
+    return sizeof(color_list);
+}
+
 uint32_t Colors::RGBToColor(uint8_t red, uint8_t green, uint8_t blue) {
     return ((uint32_t)red << 16) | ((uint32_t)green << 8) | blue;
 }
 
-int Colors::getColorsCount(){
-    return sizeof(color_list);
+void Colors::ColorToRGB(uint32_t color, uint8_t &r, uint8_t &g, uint8_t &b) {
+    r = (color >> 16) & 0xFF;
+    g = (color >> 8) & 0xFF;
+    b = color & 0xFF;
+}
+
+uint32_t Colors::HexToColor(uint8_t index, String hexcolor){
+    return  (uint32_t)strtol(hexcolor.c_str(), NULL, 16);
+}
+ 
+ String Colors::ColorToHex(uint8_t r, uint8_t g, uint8_t b) {
+    char hexColor[7];
+    snprintf(hexColor, sizeof(hexColor), "#%02X%02X%02X", r, g, b);
+    return String(hexColor);
 }

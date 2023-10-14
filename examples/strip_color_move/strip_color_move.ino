@@ -1,5 +1,5 @@
-#include <LedStrip.h>
-LedStrip strip1 = LedStrip(2, 6); 
+#include <CODBOTS_LedStrip.h>
+CODBOTS_LedStrip strip1 = CODBOTS_LedStrip(2, 6); 
 void setup() {
   Serial.begin(115200); 
 }
