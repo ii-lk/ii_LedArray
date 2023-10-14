@@ -31,8 +31,12 @@ class Colors {
   public:
     uint32_t get(int index);
     String getName(int index);
-    uint32_t RGBToColor(uint8_t red, uint8_t green, uint8_t blue);
     int getColorsCount();
+
+    uint32_t RGBToColor(uint8_t red, uint8_t green, uint8_t blue);
+    void ColorToRGB(uint32_t color, uint8_t &r, uint8_t &g, uint8_t &b);
+    uint32_t HexToColor(uint8_t index, String color);
+    String ColorToHex(uint8_t r, uint8_t g, uint8_t b);
 };
 
 #endif
