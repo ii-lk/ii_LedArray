@@ -1,7 +1,28 @@
+#include "esp_timer.h"
 #include <CODBOTS_LedStrip.h>
-CODBOTS_LedStrip strip1 = CODBOTS_LedStrip(2, 6); 
+
+ 
+CODBOTS_LedStrip strip1 = CODBOTS_LedStrip(4, 10); 
+
+esp_timer_handle_t timer1;
+
 void setup() {
   Serial.begin(115200); 
+  strip1.begin();
+  //loops.begin();
+  //loops.createLoop(loop1,100);
+
+    esp_timer_create_args_t timer1_args = {
+    .callback = &loop1,
+    .name = "timer1"
+  };
+  esp_timer_create(&timer1_args, &timer1);
+  esp_timer_start_periodic(timer1, 50 * 1000);
+
+}
+
+void loop1(void* arg) {
+  strip1.show();
 }
 
 void loop() {
@@ -13,7 +34,6 @@ void loop() {
   strip1.setColor(5, 0, 255, 0);
   for (int n = 0; n < strip1.getLEDCount() * 10; n++) {
     strip1.move(false);
-    strip1.show();
     delay(100);
   }
 
@@ -25,7 +45,6 @@ void loop() {
   strip1.setColor(5, 0, 0, 255);
   for (int n = 0; n < strip1.getLEDCount() * 10; n++) {
     strip1.move(true);
-    strip1.show();
     delay(100);
   }
 
@@ -37,7 +56,6 @@ void loop() {
   strip1.setColor(5, 255, 255, 255);
   for (int n = 0; n < strip1.getLEDCount() * 10; n++) {
     strip1.move(false);
-    strip1.show();
     delay(100);
   }
 }
