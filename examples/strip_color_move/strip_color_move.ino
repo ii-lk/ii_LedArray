@@ -1,11 +1,11 @@
 #include "esp_timer.h"
-#include <CODBOTS_LedStrip.h>
+#include <CODBOTS_LedArray.h>
 
  
 <<<<<<< HEAD
-CODBOTS_LedStrip strip1 = CODBOTS_LedStrip(2, 6); 
+CODBOTS_LedArray strip1 = CODBOTS_LedArray(2, 6); 
 =======
-CODBOTS_LedStrip strip1 = CODBOTS_LedStrip(4, 10); 
+CODBOTS_LedArray strip1 = CODBOTS_LedArray(4, 10); 
 >>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
 
 esp_timer_handle_t timer1;

@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "CODBOTS_LedStrip.h"
+#include "CODBOTS_LedArray.h"
 
 <<<<<<< HEAD
 
@@ -7,15 +7,15 @@
 bool _changedb;
 >>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
 
-CODBOTS_LedStrip::CODBOTS_LedStrip() {
+CODBOTS_LedArray::CODBOTS_LedArray() {
 
 }
 
-CODBOTS_LedStrip::CODBOTS_LedStrip(int pin, int ledcount) {
+CODBOTS_LedArray::CODBOTS_LedArray(int pin, int ledcount) {
     strip = Adafruit_NeoPixel(ledcount, pin, NEO_GRB + NEO_KHZ800);
 }
 
-void CODBOTS_LedStrip::setBlurMode(bool bmode) {
+void CODBOTS_LedArray::setBlurMode(bool bmode) {
     blurmode = bmode;
     if (blurmode) {
         allocatePixelsArray(strip.numPixels());
@@ -25,7 +25,7 @@ void CODBOTS_LedStrip::setBlurMode(bool bmode) {
     }
 }
 
-void CODBOTS_LedStrip::begin() {
+void CODBOTS_LedArray::begin() {
     strip.begin();
     for (int n = 0; n < strip.numPixels(); n++) {
         strip.setPixelColor(n, 0, 0, 0);
@@ -37,7 +37,7 @@ void CODBOTS_LedStrip::begin() {
     strip.show();
 }
 
-void CODBOTS_LedStrip::allocatePixelsArray(int size) {
+void CODBOTS_LedArray::allocatePixelsArray(int size) {
     if (pixels != nullptr) {
         delete[] pixels;  // Free previously allocated memory, if any
     }
@@ -47,7 +47,7 @@ void CODBOTS_LedStrip::allocatePixelsArray(int size) {
     }
 }
 
-void CODBOTS_LedStrip::test() {
+void CODBOTS_LedArray::test() {
     for (int c = 3; c > -1; c--) {
         for (int n = 0; n < strip.numPixels(); n++) {
             setColor(n, colors.get(c));
@@ -58,7 +58,7 @@ void CODBOTS_LedStrip::test() {
     }
 }
 
-void CODBOTS_LedStrip::testAll() {
+void CODBOTS_LedArray::testAll() {
     for (int c = colors.getColorsCount() - 1; c > -1; c--) {
         Serial.println(colors.getName(c));
         for (int n = 0; n < strip.numPixels(); n++) {
@@ -70,11 +70,11 @@ void CODBOTS_LedStrip::testAll() {
     }
 }
 
-void CODBOTS_LedStrip::clear() {
+void CODBOTS_LedArray::clear() {
     strip.clear();
 }
 
-void CODBOTS_LedStrip::show() {
+void CODBOTS_LedArray::show() {
     if (_changedb) {
 <<<<<<< HEAD
         for (int i = 0; i < getLength();i++)
@@ -89,59 +89,59 @@ void CODBOTS_LedStrip::show() {
     }
 }
 
-void CODBOTS_LedStrip::changed() {
+void CODBOTS_LedArray::changed() {
     _changedb = true;
 }
 
-void CODBOTS_LedStrip::setBrightness(int bright) {
+void CODBOTS_LedArray::setBrightness(int bright) {
     strip.setBrightness(map(bright, 0, 100, 0, 255));
     changed();
 }
 
 <<<<<<< HEAD
-int CODBOTS_LedStrip::getLength() {
+int CODBOTS_LedArray::getLength() {
 =======
-int CODBOTS_LedStrip::getLEDCount() {
+int CODBOTS_LedArray::getLEDCount() {
 >>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
     return strip.numPixels();
 }
 
-int CODBOTS_LedStrip::getBrightness() {
+int CODBOTS_LedArray::getBrightness() {
     return brightness;
 }
 
 <<<<<<< HEAD
-bool CODBOTS_LedStrip::isFilled() const {
+bool CODBOTS_LedArray::isFilled() const {
     return filled_;
 }
 
-void CODBOTS_LedStrip::setFilled(bool filled) {
+void CODBOTS_LedArray::setFilled(bool filled) {
     filled_ = filled;
 }
 
 =======
 >>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
 /////////////////////////////////////////////////////////////////////////
-void CODBOTS_LedStrip::setColor(uint8_t index, uint32_t color) {
+void CODBOTS_LedArray::setColor(uint8_t index, uint32_t color) {
     uint8_t r, g, b;
     colors.ColorToRGB(color, r, g, b);
     setColor(index, r, g, b);
 }
 
 <<<<<<< HEAD
-void CODBOTS_LedStrip::setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue){
+void CODBOTS_LedArray::setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue){
     if(!checkRange(index)){
         return;
     }
     pixels[index].setColor(red,green,blue);
 =======
-void CODBOTS_LedStrip::setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue) {
+void CODBOTS_LedArray::setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue) {
     strip.setPixelColor(index, red, green, blue);
 >>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
     changed();
 }
 
-void CODBOTS_LedStrip::setColorTime(uint8_t index, uint8_t red, uint8_t green, uint8_t blue, long start, long duration) {
+void CODBOTS_LedArray::setColorTime(uint8_t index, uint8_t red, uint8_t green, uint8_t blue, long start, long duration) {
 <<<<<<< HEAD
        if(!checkRange(index)){
         return;
@@ -149,42 +149,42 @@ void CODBOTS_LedStrip::setColorTime(uint8_t index, uint8_t red, uint8_t green, u
     pixels[index].setTargetColor(red, green, blue, start, duration);
 }
 
-void CODBOTS_LedStrip::setColorTime(uint8_t index, uint32_t color, long start, long duration) {
+void CODBOTS_LedArray::setColorTime(uint8_t index, uint32_t color, long start, long duration) {
         if(!checkRange(index)){
             return;
         }
         pixels[index].setTargetColor((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff, start, duration);
 }
 
-uint32_t CODBOTS_LedStrip::getColor(int index){
+uint32_t CODBOTS_LedArray::getColor(int index){
     return pixels[index].getColor();
 =======
     pixels[index].setColor(red, green, blue, start, duration);
 }
 
-void CODBOTS_LedStrip::setColorTime(uint8_t index, uint32_t color, long start, long duration) {
+void CODBOTS_LedArray::setColorTime(uint8_t index, uint32_t color, long start, long duration) {
     pixels[index].setColor((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff, start, duration);
 }
 
-uint32_t CODBOTS_LedStrip::getColor(int index){
+uint32_t CODBOTS_LedArray::getColor(int index){
     return strip.getPixelColor(index);
 >>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
 }
 //////////////////////////////////////////////////////////////////////////////
-void CODBOTS_LedStrip::setColorAll(uint8_t red, uint8_t green, uint8_t blue) {
+void CODBOTS_LedArray::setColorAll(uint8_t red, uint8_t green, uint8_t blue) {
     for (int n = 0; n < strip.numPixels(); n++) {
         setColor(n, red, green, blue);
     }
 }
 
-void CODBOTS_LedStrip::setColorAll(uint8_t red, uint8_t green, uint8_t blue, long start, long duration) {
+void CODBOTS_LedArray::setColorAll(uint8_t red, uint8_t green, uint8_t blue, long start, long duration) {
 <<<<<<< HEAD
     for (int n = 0; n < getLength(); n++) {
         pixels[n].setTargetColor(red, green, blue, start, duration);
     }
 }
 
-bool CODBOTS_LedStrip::checkRange(int n){
+bool CODBOTS_LedArray::checkRange(int n){
     if(n<0 || n>=getLength()){
         Serial.println("ERROR:invalid index value ("+String(n)+") PIN:" + String(3) + "\nLENGTH:" + getLength());
         return false;
@@ -198,7 +198,7 @@ bool CODBOTS_LedStrip::checkRange(int n){
 }
 ////////////////////////////////////////////////////////////////////////////////
 
-void CODBOTS_LedStrip::_patternAllColors(bool changedir) {
+void CODBOTS_LedArray::_patternAllColors(bool changedir) {
     if (!patterndir) {
         patternstart++;
         if (patternstart == strip.numPixels()) {
@@ -233,7 +233,7 @@ void CODBOTS_LedStrip::_patternAllColors(bool changedir) {
     }
 }
 
-void CODBOTS_LedStrip::move(bool direction) {
+void CODBOTS_LedArray::move(bool direction) {
     if (direction) {
         uint32_t lastcolor = getColor(0);
         for (int i = 0; i < strip.numPixels() - 1; i++) {
@@ -255,7 +255,7 @@ void CODBOTS_LedStrip::move(bool direction) {
 }
 <<<<<<< HEAD
 
-bool CODBOTS_LedStrip::update() {
+bool CODBOTS_LedArray::update() {
     boolean array_changed = false;
     for (int i = 0; i < getLength(); i++) {
  
@@ -302,7 +302,7 @@ bool CODBOTS_LedStrip::update() {
           
 =======
 
-bool CODBOTS_LedStrip::update() {
+bool CODBOTS_LedArray::update() {
     boolean array_changed = false;
     for (int i = 0; i < strip.numPixels(); i++) {
         uint32_t ccolor = getColor(i);

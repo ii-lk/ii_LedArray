@@ -1,4 +1,4 @@
-#include <CODBOTS_LedStrip.h>
+#include <CODBOTS_LedArray.h>
 <<<<<<< HEAD
 #include <CODBOTS_Timer.h>
 
@@ -14,9 +14,9 @@
 
 
 Colors colors;
-CODBOTS_LedStrip tail = CODBOTS_LedStrip(2, 6);
-CODBOTS_LedStrip ring = CODBOTS_LedStrip(4, 10);
-CODBOTS_LedStrip head = CODBOTS_LedStrip(5, 4);
+CODBOTS_LedArray tail = CODBOTS_LedArray(2, 6);
+CODBOTS_LedArray ring = CODBOTS_LedArray(4, 10);
+CODBOTS_LedArray head = CODBOTS_LedArray(5, 4);
 
 CODBOTS_Timer timer;
 =======
@@ -26,7 +26,7 @@ CODBOTS_Timer timer;
 #define LEDSTRIP_PIN 4
 
 Colors colors;
-CODBOTS_LedStrip strip1 = CODBOTS_LedStrip(LEDSTRIP_PIN, 10);
+CODBOTS_LedArray strip1 = CODBOTS_LedArray(LEDSTRIP_PIN, 10);
 >>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
 
 esp_timer_handle_t periodic_timer;

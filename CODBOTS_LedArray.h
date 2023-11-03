@@ -1,11 +1,11 @@
-#ifndef CODBOTS_LEDSTRIP_H
-#define CODBOTS_LEDSTRIP_H
+#ifndef CODBOTS_LedArray_H
+#define CODBOTS_LedArray_H
 
 #include <Adafruit_NeoPixel.h>
 #include "colors.h"
 #include "pixel.h"
 
-class CODBOTS_LedStrip {
+class CODBOTS_LedArray {
 private:
     Adafruit_NeoPixel strip;
     Colors colors;
@@ -27,8 +27,8 @@ private:
 
 public:
     // Constructor
-    CODBOTS_LedStrip();
-    CODBOTS_LedStrip(int pin, int ledcount);
+    CODBOTS_LedArray();
+    CODBOTS_LedArray(int pin, int ledcount);
 
     // Initialize the LED strip
     void begin();
