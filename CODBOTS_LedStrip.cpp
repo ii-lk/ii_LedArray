@@ -26,6 +26,7 @@ void CODBOTS_LedStrip::begin() {
     for (int n = 0; n < strip.numPixels(); n++) {
         strip.setPixelColor(n, 0, 0, 0);
     }
+    setBrightness(20);
     strip.show();
 }
 

@@ -36,9 +36,7 @@ void setup() {
   timer.addTimer(100);   //3 - TIMER_TAILMOVE
   timer.addTimer(100);   //4 - TIMER_ULTRASONIC
 
-  ring.setBrightness(100);
-  tail.setBrightness(100);
-  head.setBrightness(100);
+   
 
   initUltrasonic();
 
@@ -95,7 +93,6 @@ void loop() {
     }
   }
 
-
   if (timer.isTime(TIMER_ULTRASONIC, true)) {
     float distance = getDistance();
     //Serial.println(distance);
@@ -124,11 +121,11 @@ void loop() {
 
   if (timer.isTime(TIMER_TAILMOVE, true)) {
     tail.move(true);
+    tail.show();
   }
 
   if (timer.isTime(TIMER_LED_UPDATE, true)) {
     head.update();
     ring.update();
-    tail.show();
   }
 }
