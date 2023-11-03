@@ -1,1 +1,1 @@
-# CODBOTS_LedStrip
+# CODBOTS_LedArray

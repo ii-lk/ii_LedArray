@@ -1,3 +1,6 @@
+// COLORS.H file
+// This file defines a Colors class that provides methods for working with colors.
+
 #ifndef COLORS_H
 #define COLORS_H
 
@@ -5,6 +8,7 @@
 
 #define COLORS_COUNT 14
 
+// Color index constants
 #define c_black 0
 #define c_red 1
 #define c_green 2
@@ -23,20 +27,39 @@
 #define c_brown 15
 #define c_grey 16
 
-
 class Colors {
   private:
     static const byte color_list[COLORS_COUNT][3];
     static const String color_names[COLORS_COUNT];
+
   public:
+    // Get the RGB value of a color at the given index
     uint32_t get(int index);
+
+<<<<<<< HEAD
+    uint8_t get(int index,int color);
+
+=======
+>>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
+    // Get the name of a color at the given index
     String getName(int index);
+
+    // Get the total number of colors
     int getColorsCount();
 
+    // Convert RGB values to a 32-bit color value
     uint32_t RGBToColor(uint8_t red, uint8_t green, uint8_t blue);
+
+    // Convert a 32-bit color value to RGB values
     void ColorToRGB(uint32_t color, uint8_t &r, uint8_t &g, uint8_t &b);
-    uint32_t HexToColor(uint8_t index, String color);
+
+    // Convert a hex color string to a 32-bit color value
+    uint32_t HexToColor(uint8_t index, String hexcolor);
+
+    // Convert RGB values to a hex color string
     String ColorToHex(uint8_t r, uint8_t g, uint8_t b);
+
+    uint8_t filter(int color);
 };
 
 #endif
