@@ -1,11 +1,6 @@
 #include <Arduino.h>
 #include "CODBOTS_LedArray.h"
 
-<<<<<<< HEAD
-
-=======
-bool _changedb;
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
 
 CODBOTS_LedArray::CODBOTS_LedArray() {
 
@@ -30,10 +25,7 @@ void CODBOTS_LedArray::begin() {
     for (int n = 0; n < strip.numPixels(); n++) {
         strip.setPixelColor(n, 0, 0, 0);
     }
-<<<<<<< HEAD
     setBrightness(20);
-=======
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
     strip.show();
 }
 
@@ -76,14 +68,11 @@ void CODBOTS_LedArray::clear() {
 
 void CODBOTS_LedArray::show() {
     if (_changedb) {
-<<<<<<< HEAD
         for (int i = 0; i < getLength();i++)
         {
             //Serial.println(String(pixels[i].getRed()) + "," + String(pixels[i].getGreen()) + "," + String(pixels[i].getBlue()) + ",");
             strip.setPixelColor(i, pixels[i].getRed(), pixels[i].getGreen(), pixels[i].getBlue());
         }
-=======
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
         strip.show();
         _changedb = false;
     }
@@ -98,11 +87,7 @@ void CODBOTS_LedArray::setBrightness(int bright) {
     changed();
 }
 
-<<<<<<< HEAD
 int CODBOTS_LedArray::getLength() {
-=======
-int CODBOTS_LedArray::getLEDCount() {
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
     return strip.numPixels();
 }
 
@@ -110,7 +95,6 @@ int CODBOTS_LedArray::getBrightness() {
     return brightness;
 }
 
-<<<<<<< HEAD
 bool CODBOTS_LedArray::isFilled() const {
     return filled_;
 }
@@ -119,8 +103,6 @@ void CODBOTS_LedArray::setFilled(bool filled) {
     filled_ = filled;
 }
 
-=======
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
 /////////////////////////////////////////////////////////////////////////
 void CODBOTS_LedArray::setColor(uint8_t index, uint32_t color) {
     uint8_t r, g, b;
@@ -128,21 +110,15 @@ void CODBOTS_LedArray::setColor(uint8_t index, uint32_t color) {
     setColor(index, r, g, b);
 }
 
-<<<<<<< HEAD
 void CODBOTS_LedArray::setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue){
     if(!checkRange(index)){
         return;
     }
     pixels[index].setColor(red,green,blue);
-=======
-void CODBOTS_LedArray::setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue) {
-    strip.setPixelColor(index, red, green, blue);
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
     changed();
 }
 
 void CODBOTS_LedArray::setColorTime(uint8_t index, uint8_t red, uint8_t green, uint8_t blue, long start, long duration) {
-<<<<<<< HEAD
        if(!checkRange(index)){
         return;
         }
@@ -158,17 +134,6 @@ void CODBOTS_LedArray::setColorTime(uint8_t index, uint32_t color, long start, l
 
 uint32_t CODBOTS_LedArray::getColor(int index){
     return pixels[index].getColor();
-=======
-    pixels[index].setColor(red, green, blue, start, duration);
-}
-
-void CODBOTS_LedArray::setColorTime(uint8_t index, uint32_t color, long start, long duration) {
-    pixels[index].setColor((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff, start, duration);
-}
-
-uint32_t CODBOTS_LedArray::getColor(int index){
-    return strip.getPixelColor(index);
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
 }
 //////////////////////////////////////////////////////////////////////////////
 void CODBOTS_LedArray::setColorAll(uint8_t red, uint8_t green, uint8_t blue) {
@@ -178,7 +143,6 @@ void CODBOTS_LedArray::setColorAll(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void CODBOTS_LedArray::setColorAll(uint8_t red, uint8_t green, uint8_t blue, long start, long duration) {
-<<<<<<< HEAD
     for (int n = 0; n < getLength(); n++) {
         pixels[n].setTargetColor(red, green, blue, start, duration);
     }
@@ -190,10 +154,6 @@ bool CODBOTS_LedArray::checkRange(int n){
         return false;
     }else{
         return true;
-=======
-    for (int n = 0; n < strip.numPixels(); n++) {
-        pixels[n].setColor(red, green, blue, start, duration);
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
     }
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -253,7 +213,6 @@ void CODBOTS_LedArray::move(bool direction) {
     }
     //changed();
 }
-<<<<<<< HEAD
 
 bool CODBOTS_LedArray::update() {
     boolean array_changed = false;
@@ -300,43 +259,6 @@ bool CODBOTS_LedArray::update() {
            setColor(i, pixels[i].getRed(), pixels[i].getGreen(), pixels[i].getBlue());
             array_changed = true;
           
-=======
-
-bool CODBOTS_LedArray::update() {
-    boolean array_changed = false;
-    for (int i = 0; i < strip.numPixels(); i++) {
-        uint32_t ccolor = getColor(i);
-        byte current_color[3];
-        current_color[0] = (ccolor >> 16) & 0xff; // red
-        current_color[1] = (ccolor >> 8) & 0xff; // green
-        current_color[2] = ccolor & 0xff; // blue
-
-        boolean pixel_changed = false;
-        for (int c = 0; c < 3; c++) {
-            if (current_color[c] != pixels[i].getColor(c)) {
-                pixel_changed = true;
-            }
-        }
-        if (millis() < pixels[i].getStart()) {
-            array_changed = true;
-        } else if (pixel_changed) {
-            pixel_changed = false;
-            float proportion = ((float)(millis() - pixels[i].getStart())) / (float)pixels[i].getDuration();
-            if (proportion > 1.0) {
-                proportion = 1.0;
-            }
-            boolean pixel_changed = false;
-            for (int c = 0; c < 3; c++) {
-                if (current_color[c] != pixels[i].getColor(c)) {
-                    current_color[c] = pixels[i].getCColor(c) + (((float)pixels[i].getColor(c) - (float)pixels[i].getCColor(c)) * proportion);
-                    pixel_changed = true;
-                }
-            }
-            if (pixel_changed) {
-                strip.setPixelColor(i, current_color[0], current_color[1], current_color[2]);
-                array_changed = true;
-            }
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
         }
     }
     if (array_changed) {
@@ -345,10 +267,7 @@ bool CODBOTS_LedArray::update() {
         setFilled(false);
         return true;
     } else {
-<<<<<<< HEAD
         setFilled(true);
-=======
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
         return false;
     }
 }

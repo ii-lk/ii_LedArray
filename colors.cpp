@@ -1,11 +1,7 @@
 #include "colors.h"
 
 // Define the RGB values for various colors
-<<<<<<< HEAD
 const uint8_t Colors::color_list[COLORS_COUNT][3] = {
-=======
-const byte Colors::color_list[COLORS_COUNT][3] = {
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
   {0, 0, 0},       // Black
   {255, 0, 0},     // Red
   {0, 255, 0},     // Green
@@ -50,13 +46,10 @@ uint32_t Colors::get(int index) {
   }
 }
 
-<<<<<<< HEAD
 uint8_t Colors::get(int index,int color){
   return color_list[index][color];
 }
 
-=======
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
 // Get the name of a color at the given index
 String Colors::getName(int index) {
   return color_names[index];
@@ -90,10 +83,7 @@ String Colors::ColorToHex(uint8_t r, uint8_t g, uint8_t b) {
     snprintf(hexColor, sizeof(hexColor), "#%02X%02X%02X", r, g, b);
     return String(hexColor);
 }
-<<<<<<< HEAD
 
 uint8_t Colors::filter(int color) {
   return (color > 255) ? 255 : (color < 0) ? 0 : color;
 }
-=======
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc

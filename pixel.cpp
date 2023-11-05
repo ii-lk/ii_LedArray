@@ -3,11 +3,8 @@
 // Constructor
 Pixel::Pixel() {
     // Initialize member variables in the constructor if needed
-<<<<<<< HEAD
     setStart(0);
     setDuration(0);
-=======
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
 }
 
 // Getter functions
@@ -24,13 +21,8 @@ byte Pixel::getBlue() const {
 }
 
 // Getter functions for cached (C) RGB values
-<<<<<<< HEAD
 byte Pixel::getTRed() const {
     return tr_;
-=======
-byte Pixel::getCRed() const {
-    return cr_;
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
 }
 
 byte Pixel::getTGreen() const {
@@ -41,7 +33,6 @@ byte Pixel::getTBlue() const {
     return tb_;
 }
 
-<<<<<<< HEAD
 // Getter functions for cached (C) RGB values
 byte Pixel::getLRed() const {
     return lr_;
@@ -58,8 +49,6 @@ byte Pixel::getLBlue() const {
 uint32_t Pixel::getColor() {
     return ((uint32_t)getRed() << 16) | ((uint32_t)getGreen() << 8) | getBlue();
 }
-=======
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
 // Get a specific color channel (0 for Red, 1 for Green, 2 for Blue)
 uint8_t Pixel::getColor(int n) {
     switch (n) {
@@ -72,11 +61,7 @@ uint8_t Pixel::getColor(int n) {
     }
 }
 
-<<<<<<< HEAD
 uint8_t Pixel::getLastColor(int n) {
-=======
-uint8_t Pixel::getCColor(int n) {
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
     switch (n) {
         case 0:
             return getLRed();
@@ -135,7 +120,6 @@ void Pixel::setFilled(bool filled) {
     filled_ = filled;
 }
 
-<<<<<<< HEAD
 void Pixel::setColor(int index,uint8_t v){
     v = filter(v);
     switch (index)
@@ -160,14 +144,6 @@ void Pixel::setTargetColor(uint8_t r, uint8_t g, uint8_t b, long start, long dur
     lg_ = g_;
     lb_ = b_;
 
-=======
-// Set the RGB values and cached values along with start and duration
-void Pixel::setColor(uint8_t r, uint8_t g, uint8_t b, long start, long duration) {
-    cr_ = getRed();
-    cg_ = getGreen();
-    cb_ = getBlue();
-    setColor(r, g, b);
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
     setStart(start);
     setDuration(duration);
 }
@@ -188,10 +164,7 @@ uint8_t* Pixel::getColorArray() const {
     colorArray[2] = b_;
     return colorArray;
 }
-<<<<<<< HEAD
 
 uint8_t Pixel::filter(int color) {
   return (color > 255) ? 255 : (color < 0) ? 0 : color;
 }
-=======
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc

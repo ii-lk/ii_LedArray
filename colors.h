@@ -36,11 +36,8 @@ class Colors {
     // Get the RGB value of a color at the given index
     uint32_t get(int index);
 
-<<<<<<< HEAD
     uint8_t get(int index,int color);
 
-=======
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
     // Get the name of a color at the given index
     String getName(int index);
 

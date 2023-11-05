@@ -16,11 +16,8 @@ private:
     int selectedpattern;
     bool blurmode;
     Pixel* pixels = nullptr;
-<<<<<<< HEAD
     bool filled_;
     bool _changedb;
-=======
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
 
     // Function to allocate memory for the pixel array
     void allocatePixelsArray(int size);
@@ -66,17 +63,12 @@ public:
     // Move colors in the LED strip in a specified direction
     void move(bool direction);
 
-<<<<<<< HEAD
     bool isFilled() const;
 
     void setFilled(bool filled);
 
     // Get the number of LEDs in the strip
     int getLength();
-=======
-    // Get the number of LEDs in the strip
-    int getLEDCount();
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
     //////////////////////////////////////////////////////////////////////
     // Set the color of a specific LED using RGB values
     void setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue);//4
@@ -95,12 +87,9 @@ public:
 
     // Set the same color for all LEDs with a start time and duration
     void setColorAll(uint8_t red, uint8_t green, uint8_t blue, long start, long duration);
-<<<<<<< HEAD
     
     //validations
     bool checkRange(int n);
-=======
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
 };
 
 #endif
