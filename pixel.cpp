@@ -150,9 +150,9 @@ void Pixel::setTargetColor(uint8_t r, uint8_t g, uint8_t b, long start, long dur
 
 // Set only the RGB values
 void Pixel::setColor(uint8_t r, uint8_t g, uint8_t b) {
-    r_ = r;
-    g_ = g;
-    b_ = b;
+    r_ = filter(r);
+    g_ = filter(g);
+    b_ = filter(b);
     setFilled(false);
 }
 
@@ -166,5 +166,5 @@ uint8_t* Pixel::getColorArray() const {
 }
 
 uint8_t Pixel::filter(int color) {
-  return (color > 255) ? 255 : (color < 0) ? 0 : color;
+  return (color > 254) ? 254 : (color < 0) ? 0 : color;
 }
