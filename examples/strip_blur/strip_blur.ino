@@ -1,5 +1,4 @@
 #include <CODBOTS_LedArray.h>
-<<<<<<< HEAD
 #include <CODBOTS_Timer.h>
 
 #define LEDSTRIP_PIN 4
@@ -19,15 +18,6 @@ CODBOTS_LedArray ring = CODBOTS_LedArray(4, 10);
 CODBOTS_LedArray head = CODBOTS_LedArray(5, 4);
 
 CODBOTS_Timer timer;
-=======
-#include <esp_timer.h>
- 
-
-#define LEDSTRIP_PIN 4
-
-Colors colors;
-CODBOTS_LedArray strip1 = CODBOTS_LedArray(LEDSTRIP_PIN, 10);
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
 
 esp_timer_handle_t periodic_timer;
 const int interval = 1000000; // Interval in microseconds (1 second)
@@ -41,7 +31,6 @@ void timerCallback(void* arg) {
  
 void setup() {
   Serial.begin(115200);
-<<<<<<< HEAD
 
   tail.begin();
   tail.setBlurMode(true);
@@ -63,20 +52,6 @@ void setup() {
 
    
  
-=======
-  strip1.begin();
-  strip1.setBlurMode(true); 
-
-    esp_timer_create_args_t periodic_timer_args;
-  periodic_timer_args.callback = &timerCallback;
-  periodic_timer_args.arg = NULL;
-  periodic_timer_args.dispatch_method = ESP_TIMER_TASK;
-  esp_timer_create(&periodic_timer_args, &periodic_timer);
-
-  // Start the timer with the specified interval
-  esp_timer_start_periodic(periodic_timer, interval);
-  
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
 }
 
 int pattern_color = 0;
@@ -86,7 +61,6 @@ int cc = 0;
 int colorset = 0;
 
 void loop() {
-<<<<<<< HEAD
 
   if (timer.isTime(TIMER_HEADCHANGE, true)) {
 
@@ -164,26 +138,4 @@ void loop() {
     head.update();
     ring.update();
   }
-=======
-  int delay1 = 100;
-  int delay2 = 50;
-  for (int c = 0; c < COLORS_COUNT; c+=2) {
-    uint32_t color = colors.get(c);
-    for (int n = 0; n < strip1.getLEDCount(); n++) {
-      strip1.setColor(n, color, millis() + (n * delay2), (n + 1) * delay1);
-    }
-    while (strip1.update()) {}
-    delay(1000);
-    color = colors.get(c+1);
-    for (int n = 0; n < strip1.getLEDCount(); n++) {
-      strip1.setColor((strip1.getLEDCount()-n)-1, color, millis() + (n * delay2), (n + 1) * delay1);
-    }
-   while (strip1.update()) {}
-    delay(1000);
-  }
-}
-
-void loop2(){
-//  strip1.update();
->>>>>>> a2e43d3e81d2ba5f62772b74aec1a75c25aef2dc
 }
