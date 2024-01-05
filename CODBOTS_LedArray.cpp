@@ -126,6 +126,7 @@ void CODBOTS_LedArray::setFilled(bool filled)
     filled_ = filled;
 }
 
+/////////////////////////////////////////////////////////////////////////
 void CODBOTS_LedArray::setColor(uint8_t index, uint32_t color)
 {
     uint8_t r, g, b;
@@ -165,7 +166,7 @@ uint32_t CODBOTS_LedArray::getColor(int index)
 {
     return pixels[index].getColor();
 }
-
+//////////////////////////////////////////////////////////////////////////////
 void CODBOTS_LedArray::setColorAll(uint8_t red, uint8_t green, uint8_t blue)
 {
     for (int n = 0; n < strip.numPixels(); n++)
