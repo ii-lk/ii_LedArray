@@ -5,14 +5,14 @@ ii_LedArray ledarray = ii_LedArray(4, 6);  // Initialize the LED array on pin 6 
 
 void setup() {
   ledarray.begin();  // Initialize the LED strip
-  ledarray.show();
+  ledarray.update();
 }
 
 void loop() {
   for (int cindex = 0; cindex < COLORS_COUNT; cindex++) {
     for (int led = 0; led < 6; led++) {
       ledarray.setColor(led, colors.get(cindex));
-      ledarray.show();
+      ledarray.update();
       delay(100);
     }
   }

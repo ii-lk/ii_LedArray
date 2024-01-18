@@ -22,13 +22,8 @@ void setup() {
   timer.addTimer(LEDHEAD, 600);
   timer.addTimer(LEDTAIL, 500);
 
-  ledarray1.setBlurMode(true);
   ledarray1.begin();  // Initialize the LED strip
-
-  ledarray2.setBlurMode(true);
   ledarray2.begin();  // Initialize the LED strip
-
-  ledarray3.setBlurMode(true);
   ledarray3.begin();  // Initialize the LED strip
 
   ledarray2.setColor(0, colors.get(1));
@@ -47,7 +42,7 @@ bool head = false;
 void loop() {
   if (timer.isTime(LEDMOVE, false)) {
     ledarray2.move(true);
-    ledarray2.show();
+    ledarray2.update();
   }
 
   if (timer.isTime(LEDHEAD, false)) {

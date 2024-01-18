@@ -8,28 +8,23 @@
 
 ii_Timer timer;
 
-Colors colors;                                         // Initialize a Colors object for color definitions
-ii_LedArray ledarray1 = ii_LedArray(4, 6);   // Initialize the LED array on pin 6 with 4 LEDs
-ii_LedArray ledarray2 = ii_LedArray(5, 10);  // Initialize the LED array on pin 6 with 4 LEDs
-ii_LedArray ledarray3 = ii_LedArray(18, 4);  // Initialize the LED array on pin 6 with 4 LEDs
+Colors colors;                              // Initialize a Colors object for color definitions
+ii_LedArray ledarray1 = ii_LedArray(4, 6);  // Initialize the LED array on pin 6 with 4 LEDs
+ii_LedArray ledarray2 = ii_LedArray(5, 10); // Initialize the LED array on pin 6 with 4 LEDs
+ii_LedArray ledarray3 = ii_LedArray(18, 4); // Initialize the LED array on pin 6 with 4 LEDs
 
-
-void setup() {
-  Serial.begin(115200);  // Start the serial communication
+void setup()
+{
+  Serial.begin(115200); // Start the serial communication
 
   timer.addTimer(LEDUPDATE, 20);
   timer.addTimer(LEDMOVE, 100);
   timer.addTimer(LEDHEAD, 600);
   timer.addTimer(LEDTAIL, 500);
 
-  ledarray1.setBlurMode(true);
-  ledarray1.begin();  // Initialize the LED strip
-
-  ledarray2.setBlurMode(true);
-  ledarray2.begin();  // Initialize the LED strip
-
-  ledarray3.setBlurMode(true);
-  ledarray3.begin();  // Initialize the LED strip
+  ledarray1.begin(); // Initialize the LED strip
+  ledarray2.begin(); // Initialize the LED strip
+  ledarray3.begin(); // Initialize the LED strip
 
   ledarray2.setColor(0, colors.get(1));
   ledarray2.setColor(1, colors.get(2));
@@ -43,20 +38,26 @@ void setup() {
   ledarray2.setColor(9, colors.get(10));
 }
 bool head = false;
- int tailn=0;
-void loop() {
-  if (timer.isTime(LEDMOVE, false)) {
+int tailn = 0;
+void loop()
+{
+  if (timer.isTime(LEDMOVE, false))
+  {
     ledarray2.move(true);
-    ledarray2.show();
+    ledarray2.update();
   }
 
-  if (timer.isTime(LEDHEAD, false)) {
-    if (head) {
+  if (timer.isTime(LEDHEAD, false))
+  {
+    if (head)
+    {
       ledarray3.setColorTrans(0, colors.get(c_red), millis(), 500);
       ledarray3.setColorTrans(1, colors.get(c_red), millis(), 500);
       ledarray3.setColorTrans(2, colors.get(c_white), millis(), 500);
       ledarray3.setColorTrans(3, colors.get(c_white), millis(), 500);
-    } else {
+    }
+    else
+    {
       ledarray3.setColorTrans(0, colors.get(c_white), millis(), 500);
       ledarray3.setColorTrans(1, colors.get(c_white), millis(), 500);
       ledarray3.setColorTrans(2, colors.get(c_red), millis(), 500);
@@ -65,20 +66,26 @@ void loop() {
     head = !head;
   }
 
-  if (timer.isTime(LEDTAIL, false)) {
-    if(tailn<5){
-      tailn+=random(3);
-    }else{
+  if (timer.isTime(LEDTAIL, false))
+  {
+    if (tailn < 5)
+    {
+      tailn += random(3);
+    }
+    else
+    {
       tailn = random(6);
     }
-    
-    ledarray1.setColorTrans(colors.get(c_white), millis(),100);
-    for (int i = 0; i < tailn ; i++) {
-      ledarray1.setColorTrans(i, colors.get(c_blue), millis()+(i*50), 150);
+
+    ledarray1.setColorTrans(colors.get(c_white), millis(), 100);
+    for (int i = 0; i < tailn; i++)
+    {
+      ledarray1.setColorTrans(i, colors.get(c_blue), millis() + (i * 50), 150);
     }
   }
 
-  if (timer.isTime(LEDUPDATE, true)) {
+  if (timer.isTime(LEDUPDATE, true))
+  {
     ledarray1.update();
     ledarray3.update();
   }

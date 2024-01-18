@@ -8,7 +8,6 @@ bool colorselect;  // Boolean flag to toggle between colors
 
 void setup() {
   ledarray.begin();            // Initialize the LED strip
-  ledarray.setBlurMode(true);  // Enable blur mode for smoother color transitions
 }
 
 void loop() {

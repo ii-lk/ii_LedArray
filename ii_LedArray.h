@@ -1,21 +1,36 @@
 #ifndef ii_LedArray_H
 #define ii_LedArray_H
 
-#include <Adafruit_NeoPixel.h>
+#include <driver/rmt.h>
+#include <driver/gpio.h>
 #include "colors.h"
 #include "pixel.h"
 
 class ii_LedArray
 {
 private:
-    Adafruit_NeoPixel strip;
+    int LED_COUNT;
+    int GPIO_NUM;
+
+    bool MODE_UPDATE;
+
+    // You can define a list of channels and iterate through them
+    const rmt_channel_t availableChannels[8] = {RMT_CHANNEL_0, RMT_CHANNEL_1, RMT_CHANNEL_2, RMT_CHANNEL_3, RMT_CHANNEL_4, RMT_CHANNEL_5, RMT_CHANNEL_6, RMT_CHANNEL_7};
+    rmt_channel_t selectedChannel = RMT_CHANNEL_0;
+
+// WS2812 Timing (in ticks, assuming 80MHz clock for RMT)
+#define WS2812_T0H 14   // 350ns
+#define WS2812_T0L 28   // 700ns
+#define WS2812_T1H 28   // 700ns
+#define WS2812_T1L 14   // 350ns
+#define WS2812_RESET 50 // >50us
 
     int brightness;
+    float brightness_p;
     void changed();
     int patternstart;
     bool patterndir;
     int selectedpattern;
-    bool blurmode;
     Pixel *pixels = nullptr;
     bool filled_;
     bool _changedb;
@@ -23,7 +38,16 @@ private:
     // Function to allocate memory for the pixel array
     void allocatePixelsArray(int size);
 
+    bool setupRMT(rmt_channel_t channel);
+
+    void send_ws2812_bit(bool bitVal);
+    void send_ws2812_color(uint8_t red, uint8_t green, uint8_t blue);
+    void send_reset();
+
 public:
+    // Show the current LED colors
+    void send();
+
     Colors colors;
     // Constructor
     ii_LedArray();
@@ -31,9 +55,6 @@ public:
 
     // Initialize the LED strip
     void begin();
-
-    // Set blur mode for pixel effects
-    void setBlurMode(bool bmode);
 
     // Test the LED strip with color transitions
     void test();
@@ -43,9 +64,6 @@ public:
 
     // Clear all colors on the LED strip
     void clear();
-
-    // Show the current LED colors
-    void show();
 
     // Update the LED strip with any pixel animations
     bool update();

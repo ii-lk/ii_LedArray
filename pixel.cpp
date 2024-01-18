@@ -184,6 +184,7 @@ void Pixel::setColor(uint8_t r, uint8_t g, uint8_t b)
     r_ = filter(r);
     g_ = filter(g);
     b_ = filter(b);
+
     setFilled(false);
 }
 

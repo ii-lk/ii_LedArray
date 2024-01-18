@@ -7,31 +7,30 @@ ii_LedArray::ii_LedArray()
 
 ii_LedArray::ii_LedArray(int pin, int ledcount)
 {
-    strip = Adafruit_NeoPixel(ledcount, pin, NEO_GRB + NEO_KHZ800);
-}
-
-void ii_LedArray::setBlurMode(bool bmode)
-{
-    blurmode = bmode;
-    if (blurmode)
-    {
-        allocatePixelsArray(strip.numPixels());
-    }
-    else
-    {
-        allocatePixelsArray(0);
-    }
+    LED_COUNT = ledcount;
+    GPIO_NUM = pin;
 }
 
 void ii_LedArray::begin()
 {
-    strip.begin();
-    for (int n = 0; n < strip.numPixels(); n++)
+
+    // Try to setup RMT on available channels
+    for (size_t i = 0; i < sizeof(availableChannels) / sizeof(availableChannels[0]); ++i)
     {
-        strip.setPixelColor(n, 0, 0, 0);
+        if (setupRMT(availableChannels[i]))
+        {
+            selectedChannel = availableChannels[i];
+            break;
+        }
     }
-    setBrightness(20);
-    strip.show();
+
+    rmt_config_t config = RMT_DEFAULT_CONFIG_TX((gpio_num_t)GPIO_NUM, selectedChannel);
+    config.clk_div = 2; // Adjust clock divider for accurate timing
+
+    rmt_config(&config);
+    rmt_driver_install(config.channel, 0, 0);
+
+    allocatePixelsArray(LED_COUNT);
 }
 
 void ii_LedArray::allocatePixelsArray(int size)
@@ -51,10 +50,10 @@ void ii_LedArray::test()
 {
     for (int c = 3; c > -1; c--)
     {
-        for (int n = 0; n < strip.numPixels(); n++)
+        for (int n = 0; n < LED_COUNT; n++)
         {
             setColor(n, colors.get(c));
-            show();
+            send();
             delay(100);
         }
         delay(1000);
@@ -66,10 +65,10 @@ void ii_LedArray::testAll()
     for (int c = colors.getColorsCount() - 1; c > -1; c--)
     {
         Serial.println(colors.getName(c));
-        for (int n = 0; n < strip.numPixels(); n++)
+        for (int n = 0; n < LED_COUNT; n++)
         {
             setColor(n, colors.get(c));
-            show();
+            send();
             delay(100);
         }
         delay(3000);
@@ -78,22 +77,23 @@ void ii_LedArray::testAll()
 
 void ii_LedArray::clear()
 {
-    strip.clear();
+    for (int i = 0; i < getLength(); i++)
+    {
+        send_ws2812_color(0, 0, 0);
+    }
+    send_reset();
 }
 
-void ii_LedArray::show()
+void ii_LedArray::send()
 {
     if (_changedb)
     {
-        if (blurmode)
+
+        for (int i = 0; i < getLength(); i++)
         {
-            for (int i = 0; i < getLength(); i++)
-            {
-                // Serial.println(String(pixels[i].getRed()) + "," + String(pixels[i].getGreen()) + "," + String(pixels[i].getBlue()) + ",");
-                strip.setPixelColor(i, pixels[i].getRed(), pixels[i].getGreen(), pixels[i].getBlue());
-            }
+            send_ws2812_color(pixels[i].getRed(), pixels[i].getGreen(), pixels[i].getBlue());
         }
-        strip.show();
+        send_reset();
         _changedb = false;
     }
 }
@@ -105,13 +105,14 @@ void ii_LedArray::changed()
 
 void ii_LedArray::setBrightness(int bright)
 {
-    strip.setBrightness(map(bright, 0, 100, 0, 255));
+    brightness = bright;
+    brightness_p = (float)brightness / 100.0;
     changed();
 }
 
 int ii_LedArray::getLength()
 {
-    return strip.numPixels();
+    return LED_COUNT;
 }
 
 int ii_LedArray::getBrightness()
@@ -143,23 +144,14 @@ void ii_LedArray::setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t bl
     {
         return;
     }
-    if (blurmode)
-    {
-        pixels[index].setColor(red, green, blue);
-        // pixels[index].setTargetColor(red, green, blue, millis(), 0);
-    }
-    else
-    {
-        strip.setPixelColor(index, red, green, blue);
-    }
-
+    pixels[index].setColor(red, green, blue);
     changed();
 }
 
 //////////////////////////////////////////////////////////////////////////////
 void ii_LedArray::setColor(uint32_t color)
 {
-    for (int n = 0; n < strip.numPixels(); n++)
+    for (int n = 0; n < LED_COUNT; n++)
     {
         setColor(n, (color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff);
     }
@@ -167,7 +159,7 @@ void ii_LedArray::setColor(uint32_t color)
 
 void ii_LedArray::setColor(uint8_t red, uint8_t green, uint8_t blue)
 {
-    for (int n = 0; n < strip.numPixels(); n++)
+    for (int n = 0; n < LED_COUNT; n++)
     {
         setColor(n, red, green, blue);
     }
@@ -180,6 +172,7 @@ void ii_LedArray::setColorTrans(uint8_t index, uint8_t red, uint8_t green, uint8
         return;
     }
     pixels[index].setTargetColor(red, green, blue, start, duration);
+    MODE_UPDATE = true;
 }
 
 void ii_LedArray::setColorTrans(uint8_t index, uint32_t color, long start, long duration)
@@ -189,6 +182,7 @@ void ii_LedArray::setColorTrans(uint8_t index, uint32_t color, long start, long 
         return;
     }
     pixels[index].setTargetColor((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff, start, duration);
+    MODE_UPDATE = true;
 }
 
 void ii_LedArray::setColorTrans(uint32_t color, long start, long duration)
@@ -197,6 +191,7 @@ void ii_LedArray::setColorTrans(uint32_t color, long start, long duration)
     {
         pixels[n].setTargetColor((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff, start, duration);
     }
+    MODE_UPDATE = true;
 }
 
 void ii_LedArray::setColorTrans(uint8_t red, uint8_t green, uint8_t blue, long start, long duration)
@@ -205,18 +200,12 @@ void ii_LedArray::setColorTrans(uint8_t red, uint8_t green, uint8_t blue, long s
     {
         pixels[n].setTargetColor(red, green, blue, start, duration);
     }
+    MODE_UPDATE = true;
 }
 
 uint32_t ii_LedArray::getColor(int index)
 {
-    if (blurmode)
-    {
-        return pixels[index].getColor();
-    }
-    else
-    {
-        return strip.getPixelColor(index);
-    }
+    return pixels[index].getColor();
 }
 
 bool ii_LedArray::checkRange(int n)
@@ -238,7 +227,7 @@ void ii_LedArray::_patternAllColors(bool changedir)
     if (!patterndir)
     {
         patternstart++;
-        if (patternstart == strip.numPixels())
+        if (patternstart == LED_COUNT)
         {
             if (changedir)
             {
@@ -261,13 +250,13 @@ void ii_LedArray::_patternAllColors(bool changedir)
             }
             else
             {
-                patternstart = strip.numPixels() - 1;
+                patternstart = LED_COUNT - 1;
             }
         }
     }
 
     int cn = 0;
-    for (int n = patternstart; n < strip.numPixels() && cn < colors.getColorsCount(); n++)
+    for (int n = patternstart; n < LED_COUNT && cn < colors.getColorsCount(); n++)
     {
         setColor(n, colors.get(cn));
         cn++;
@@ -285,7 +274,7 @@ void ii_LedArray::move(bool direction)
     if (direction)
     {
         uint32_t lastcolor = getColor(0);
-        for (int i = 0; i < strip.numPixels() - 1; i++)
+        for (int i = 0; i < LED_COUNT - 1; i++)
         {
             uint32_t color = getColor(i + 1);
             setColor(i + 1, lastcolor);
@@ -295,20 +284,25 @@ void ii_LedArray::move(bool direction)
     }
     else
     {
-        uint32_t lastcolor = getColor(strip.numPixels() - 1);
-        for (int i = strip.numPixels() - 1; i > 0; i--)
+        uint32_t lastcolor = getColor(LED_COUNT - 1);
+        for (int i = LED_COUNT - 1; i > 0; i--)
         {
             uint32_t color = getColor(i - 1);
             setColor(i - 1, lastcolor);
             lastcolor = color;
         }
-        setColor(strip.numPixels() - 1, lastcolor);
+        setColor(LED_COUNT - 1, lastcolor);
     }
-    // changed();
 }
 
 bool ii_LedArray::update()
 {
+
+    if (!MODE_UPDATE)
+    {
+        send();
+        return true;
+    }
     boolean array_changed = false;
     for (int i = 0; i < getLength(); i++)
     {
@@ -375,13 +369,72 @@ bool ii_LedArray::update()
     if (array_changed)
     {
         changed();
-        show();
+        send();
         setFilled(false);
         return true;
     }
     else
     {
+        MODE_UPDATE = false;
         setFilled(true);
         return false;
     }
+}
+
+bool ii_LedArray::setupRMT(rmt_channel_t channel)
+{
+    rmt_config_t config = RMT_DEFAULT_CONFIG_TX((gpio_num_t)GPIO_NUM, channel);
+    config.clk_div = 2;
+
+    esp_err_t configStatus = rmt_config(&config);
+    if (configStatus != ESP_OK)
+    {
+        return false; // Configuration failed
+    }
+
+    esp_err_t installStatus = rmt_driver_install(config.channel, 0, 0);
+    if (installStatus != ESP_OK)
+    {
+        return false; // Driver installation failed
+    }
+
+    return true; // Success
+}
+
+void ii_LedArray::send_ws2812_bit(bool bitVal)
+{
+    rmt_item32_t item;
+    item.level0 = 1;
+    item.duration0 = bitVal ? WS2812_T1H : WS2812_T0H;
+    item.level1 = 0;
+    item.duration1 = bitVal ? WS2812_T1L : WS2812_T0L;
+
+    rmt_write_items(selectedChannel, &item, 1, true);
+}
+
+void ii_LedArray::send_ws2812_color(uint8_t red, uint8_t green, uint8_t blue)
+{
+    // Send green, red, and blue components
+    for (int i = 7; i >= 0; i--)
+    {
+        send_ws2812_bit(green & (1 << i));
+    }
+    for (int i = 7; i >= 0; i--)
+    {
+        send_ws2812_bit(red & (1 << i));
+    }
+    for (int i = 7; i >= 0; i--)
+    {
+        send_ws2812_bit(blue & (1 << i));
+    }
+}
+
+void ii_LedArray::send_reset()
+{
+    rmt_item32_t item;
+    item.level0 = 0;
+    item.duration0 = WS2812_RESET;
+    item.level1 = 0;
+    item.duration1 = 0;
+    rmt_write_items(selectedChannel, &item, 1, true);
 }

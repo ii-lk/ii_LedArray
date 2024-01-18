@@ -15,14 +15,10 @@ void setup() {
   timer.addTimer(LEDUPDATE, 20);
   timer.addTimer(LEDCHANGE, 1500);
 
-  ledarray1.setBlurMode(true);
-  ledarray1.begin();  // Initialize the LED strip
 
-  ledarray2.setBlurMode(true);
-  ledarray2.begin();  // Initialize the LED strip
-
-  ledarray3.setBlurMode(true);
-  ledarray3.begin();  // Initialize the LED strip
+  ledarray1.begin(0);  // Initialize the LED strip
+  ledarray2.begin(1);  // Initialize the LED strip
+  ledarray3.begin(2);  // Initialize the LED strip
 }
  
 void loop() {

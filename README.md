@@ -38,7 +38,7 @@ To use the `ii_LedArray` library in your Arduino sketches, include it at the top
 
 ![Example GIF](examples/demo_01_setColor/setColor.gif)
 
-This sketch illustrates the use of ii_LedArray library functions to alternate colors on an LED array. It showcases initializing the LED array, setting individual LED colors, and updating the display in a simple and efficient manner. Functions demonstrated include begin() for initialization, setColor() for color assignment, and show() to apply changes to the LED array.
+This sketch illustrates the use of ii_LedArray library functions to alternate colors on an LED array. It showcases initializing the LED array, setting individual LED colors, and updating the display in a simple and efficient manner. Functions demonstrated include begin() for initialization, setColor() for color assignment, and update() to apply changes to the LED array.
 
 ```cpp
 #include <ii_LedArray.h>
@@ -52,12 +52,12 @@ void setup() {
 void loop() {
     ledarray.setColor(0, 255, 0, 0);  // Set color of LED at index 0 to red
     ledarray.setColor(1, 0, 0, 255);  // Set color of LED at index 1 to blue
-    ledarray.show();                  // Update the strip to apply the color change
+    ledarray.update();                  // Update the strip to apply the color change
     delay(100); 
 
     ledarray.setColor(0, 0, 0, 255);  // Set color of LED at index 1 to blue
     ledarray.setColor(1, 255, 0, 0);  // Set color of LED at index 2 to red
-    ledarray.show();                  // Update the strip to apply the color change
+    ledarray.update();                  // Update the strip to apply the color change
     delay(100); 
 }
 ```
@@ -79,7 +79,6 @@ bool colorselect;  // Boolean flag to toggle between red and blue colors
 
 void setup() {
   ledarray.begin();            // Initialize the LED strip
-  ledarray.setBlurMode(true);  // Enable blur mode for smoother color transitions
 }
 
 void loop() {
@@ -119,7 +118,6 @@ bool colorselect;  // Boolean flag to toggle between colors
 
 void setup() {
   ledarray.begin();            // Initialize the LED strip
-  ledarray.setBlurMode(true);  // Enable blur mode for smoother color transitions
 }
 
 void loop() {
