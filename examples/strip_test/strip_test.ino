@@ -1,5 +1,5 @@
-#include <CODBOTS_LedArray.h> 
-CODBOTS_LedArray strip1 = CODBOTS_LedArray(2, 6);
+#include <ii_LedArray.h> 
+ii_LedArray strip1 = ii_LedArray(2, 6);
 
 void setup() {
   Serial.begin(115200);

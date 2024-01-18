@@ -1,8 +1,8 @@
 #include "esp_timer.h"
-#include <CODBOTS_LedArray.h>
+#include <ii_LedArray.h>
 
  
-CODBOTS_LedArray strip1 = CODBOTS_LedArray(2, 6); 
+ii_LedArray strip1 = ii_LedArray(2, 6); 
 
 esp_timer_handle_t timer1;
 

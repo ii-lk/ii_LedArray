@@ -1,5 +1,5 @@
-#include <CODBOTS_LedArray.h>
-#include <CODBOTS_Timer.h>
+#include <ii_LedArray.h>
+#include <ii_Timer.h>
 
 #define LEDSTRIP_PIN 4
 
@@ -13,11 +13,11 @@
 
 
 Colors colors;
-CODBOTS_LedArray tail = CODBOTS_LedArray(2, 6);
-CODBOTS_LedArray ring = CODBOTS_LedArray(4, 10);
-CODBOTS_LedArray head = CODBOTS_LedArray(5, 4);
+ii_LedArray tail = ii_LedArray(2, 6);
+ii_LedArray ring = ii_LedArray(4, 10);
+ii_LedArray head = ii_LedArray(5, 4);
 
-CODBOTS_Timer timer;
+ii_Timer timer;
 
 esp_timer_handle_t periodic_timer;
 const int interval = 1000000; // Interval in microseconds (1 second)
