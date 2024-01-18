@@ -6,7 +6,7 @@
 
 #include <Arduino.h>
 
-#define COLORS_COUNT 14
+#define COLORS_COUNT 15
 
 // Color index constants
 #define c_black 0
@@ -23,40 +23,41 @@
 #define c_pink 11
 #define c_lime 12
 #define c_teal 13
-#define c_lavender 14
-#define c_brown 15
-#define c_grey 16
+#define c_indigo 14
 
-class Colors {
-  private:
-    static const byte color_list[COLORS_COUNT][3];
-    static const String color_names[COLORS_COUNT];
+class Colors
+{
+private:
+  static const byte color_list[COLORS_COUNT][3];
+  static const String color_names[COLORS_COUNT];
 
-  public:
-    // Get the RGB value of a color at the given index
-    uint32_t get(int index);
+public:
+  static const uint8_t rainbow[6];
+  // Get the RGB value of a color at the given index
+  uint32_t
+  get(int index);
 
-    uint8_t get(int index,int color);
+  uint8_t get(int index, int color);
 
-    // Get the name of a color at the given index
-    String getName(int index);
+  // Get the name of a color at the given index
+  String getName(int index);
 
-    // Get the total number of colors
-    int getColorsCount();
+  // Get the total number of colors
+  int getColorsCount();
 
-    // Convert RGB values to a 32-bit color value
-    uint32_t RGBToColor(uint8_t red, uint8_t green, uint8_t blue);
+  // Convert RGB values to a 32-bit color value
+  uint32_t RGBToColor(uint8_t red, uint8_t green, uint8_t blue);
 
-    // Convert a 32-bit color value to RGB values
-    void ColorToRGB(uint32_t color, uint8_t &r, uint8_t &g, uint8_t &b);
+  // Convert a 32-bit color value to RGB values
+  void ColorToRGB(uint32_t color, uint8_t &r, uint8_t &g, uint8_t &b);
 
-    // Convert a hex color string to a 32-bit color value
-    uint32_t HexToColor(uint8_t index, String hexcolor);
+  // Convert a hex color string to a 32-bit color value
+  uint32_t HexToColor(uint8_t index, String hexcolor);
 
-    // Convert RGB values to a hex color string
-    String ColorToHex(uint8_t r, uint8_t g, uint8_t b);
+  // Convert RGB values to a hex color string
+  String ColorToHex(uint8_t r, uint8_t g, uint8_t b);
 
-    uint8_t filter(int color);
+  uint8_t filter(int color);
 };
 
 #endif

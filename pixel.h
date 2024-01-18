@@ -3,7 +3,8 @@
 
 #include <Arduino.h>
 
-class Pixel {
+class Pixel
+{
 public:
     // Constructor
     Pixel();
@@ -32,8 +33,8 @@ public:
     bool isFilled() const;
 
     // Setter functions for RGB values
-    void setColor(int index,uint8_t v);
-    void setColor(uint8_t r, uint8_t g, uint8_t b); 
+    void setColor(int index, uint8_t v);
+    void setColor(uint8_t r, uint8_t g, uint8_t b);
     void setTargetColor(uint8_t r, uint8_t g, uint8_t b, long start, long duration);
     void setRed(byte r);
     void setGreen(byte g);
@@ -43,27 +44,26 @@ public:
     void setFilled(bool filled);
 
     // Get the RGB values as an array
-    uint8_t* getColorArray() const;
+    uint8_t *getColorArray() const;
 
     uint8_t filter(int color);
 
 private:
-    byte tr_=0; //target Red
-    byte tg_=0; //target Green
-    byte tb_=0; //target Blue
+    byte tr_ = 0; // target Red
+    byte tg_ = 0; // target Green
+    byte tb_ = 0; // target Blue
 
-    byte lr_=0; // Last Red
-    byte lg_=0; // Last Green
-    byte lb_=0; // Last Blue
+    byte lr_ = 0; // Last Red
+    byte lg_ = 0; // Last Green
+    byte lb_ = 0; // Last Blue
 
-    byte r_=0; // Last Red
-    byte g_=0; // Last Green
-    byte b_=0; // Last Blue
+    byte r_ = 0; // Last Red
+    byte g_ = 0; // Last Green
+    byte b_ = 0; // Last Blue
 
     long start_;
     long duration_;
     bool filled_;
-    
 };
 
 #endif
