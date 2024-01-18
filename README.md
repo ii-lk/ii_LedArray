@@ -5,7 +5,6 @@ The `ii_LedArray` library is a versatile and user-friendly tool designed for con
 
 ![Example GIF](examples/ledarray_07_MoveRainbow/rainbow.gif)
 
-
 *GIF: examples/ledarray_07_MoveRainbow*
 
 ## Features
@@ -36,30 +35,120 @@ To use the `ii_LedArray` library in your Arduino sketches, include it at the top
 ## Examples
 
 ### Basic LED Control
-This example demonstrates how to control a basic LED array.
+This sketch illustrates the use of ii_LedArray library functions to alternate colors on an LED array. It showcases initializing the LED array, setting individual LED colors, and updating the display in a simple and efficient manner. Functions demonstrated include begin() for initialization, setColor() for color assignment, and show() to apply changes to the LED array.
 
 ```cpp
 #include <ii_LedArray.h>
 
-// Code to initialize and control the LED array
+ii_LedArray ledarray = ii_LedArray(4, 6);  // Initialize the LED array on pin 6 with 4 LEDs
 
-// Placeholder for image: "Basic_LED_Control_Example.jpg"
+void setup() {
+  ledarray.begin();      // Initialize the LED strip
+}
+
+void loop() {
+    ledarray.setColor(0, 255, 0, 0);  // Set color of LED at index 0 to red
+    ledarray.setColor(1, 0, 0, 255);  // Set color of LED at index 1 to blue
+    ledarray.show();                  // Update the strip to apply the color change
+    delay(100); 
+
+    ledarray.setColor(0, 0, 0, 255);  // Set color of LED at index 1 to blue
+    ledarray.setColor(1, 255, 0, 0);  // Set color of LED at index 2 to red
+    ledarray.show();                  // Update the strip to apply the color change
+    delay(100); 
+}
 ```
+![Example GIF](examples/demo_01_setColor/setColor.gif)
 
-*Image: Basic LED Control Example*
+*Image: setColor(n,r,g,b) and show(); Example*
 
-### Advanced LED Animation
-Showcase advanced features with a custom LED animation.
+### LED Color Toggle : smooth transitions
+LED Color Toggle: Demonstrates toggling all LEDs between red and blue every second, using ii_LedArray for smooth transitions and color updates.
 
 ```cpp
-#include <ii_LedArray.h>
+#include <ii_LedArray.h>  // Include the ii_LedArray library
 
-// Code for creating a custom LED animation
+// Initialize an LED array on pin 6 with 4 LEDs
+ii_LedArray ledarray = ii_LedArray(4, 6);
 
-// Placeholder for GIF: "Advanced_LED_Animation.gif"
+long ltime;        // Variable to store the last time the LED colors were updated
+bool colorselect;  // Boolean flag to toggle between red and blue colors
+
+void setup() {
+  ledarray.begin();            // Initialize the LED strip
+  ledarray.setBlurMode(true);  // Enable blur mode for smoother color transitions
+}
+
+void loop() {
+  // Check if 1000 milliseconds (1 second) have passed since the last update
+  if (millis() - ltime > 1000) {
+    ltime = millis();  // Update the last time variable to the current time
+
+    // Toggle the entire LED array between red and blue every second
+    if (colorselect) {
+        ledarray.setColorAllTime(255, 0, 0, millis(), 1000); // Set all LEDs to red
+    } else {
+        ledarray.setColorAllTime(0, 0, 255, millis(), 1000); // Set all LEDs to blue
+    }
+
+    colorselect = !colorselect;  // Toggle the colorselect flag
+  }
+
+  ledarray.update();  // Update the LED array with the new color data
+}
 ```
+![Example GIF](examples/demo_02_setColorAllTime/setColorAllTime.gif)
 
-*GIF: Advanced LED Animation*
+*Image: setColorAllTime(r,g,b,starttime,trans_time) and update(); Example*
+
+
+### LED Ripple Effect : smooth transitions 
+Create a ripple effect across LEDs, sequentially shifting colors with time delays, showcasing dynamic and visually appealing patterns.
+
+```cpp
+#include <ii_LedArray.h>  // Include the ii_LedArray library
+
+// Initialize an LED array on pin 6 with 4 LEDs
+ii_LedArray ledarray = ii_LedArray(4, 6);
+
+long ltime;        // Variable to store the last time the LED color was updated
+bool colorselect;  // Boolean flag to toggle between colors
+
+void setup() {
+  ledarray.begin();            // Initialize the LED strip
+  ledarray.setBlurMode(true);  // Enable blur mode for smoother color transitions
+}
+
+void loop() {
+  // Check if 1000 milliseconds (1 second) have passed since the last update
+  if (millis() - ltime > 1000) {
+    ltime = millis();  // Update the last time variable to the current time
+
+    // Toggle between red and blue colors every second for each LED in a sequence
+    if (colorselect) {
+      // Sequentially set each LED to red (RGB: 255, 0, 0) with staggered timing
+      for(int n = 0; n < 4; n++){
+        ledarray.setColorTime(n, 255, 0, 0, millis() + (n * 100), 400);
+      }
+    } else {
+      // Sequentially set each LED to blue (RGB: 0, 0, 255) with staggered timing
+      for(int n = 0; n < 4; n++){
+        ledarray.setColorTime(n, 0, 0, 255, millis() + (n * 100), 400);
+      }
+    }
+
+    colorselect = !colorselect;  // Toggle the colorselect flag
+  }
+
+  ledarray.update();  // Update the LED array with the new color data
+}
+```
+![Example GIF](examples/demo_03_setColorTime_n/setColorTime_n.gif)
+
+*Image: setColorTime(n,r,g,b,starttime,trans_time) and update(); Example*
+
+
+
 
 ### [More Examples as needed]
 
