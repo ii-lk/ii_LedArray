@@ -35,6 +35,9 @@ To use the `ii_LedArray` library in your Arduino sketches, include it at the top
 ## Examples
 
 ### Basic LED Control
+
+![Example GIF](examples/demo_01_setColor/setColor.gif)
+
 This sketch illustrates the use of ii_LedArray library functions to alternate colors on an LED array. It showcases initializing the LED array, setting individual LED colors, and updating the display in a simple and efficient manner. Functions demonstrated include begin() for initialization, setColor() for color assignment, and show() to apply changes to the LED array.
 
 ```cpp
@@ -58,11 +61,13 @@ void loop() {
     delay(100); 
 }
 ```
-![Example GIF](examples/demo_01_setColor/setColor.gif)
 
 *Image: setColor(n,r,g,b) and show(); Example*
 
 ### LED Color Toggle : smooth transitions
+
+![Example GIF](examples/demo_02_setColorAllTime/setColorAllTime.gif)
+
 LED Color Toggle: Demonstrates toggling all LEDs between red and blue every second, using ii_LedArray for smooth transitions and color updates.
 
 ```cpp
@@ -97,12 +102,14 @@ void loop() {
   ledarray.update();  // Update the LED array with the new color data
 }
 ```
-![Example GIF](examples/demo_02_setColorAllTime/setColorAllTime.gif)
 
 *Image: setColorAllTime(r,g,b,starttime,trans_time) and update(); Example*
 
 
 ### LED Ripple Effect : smooth transitions 
+
+![Example GIF](examples/demo_03_setColorTime_n/setColorTime_n.gif)
+
 Create a ripple effect across LEDs, sequentially shifting colors with time delays, showcasing dynamic and visually appealing patterns.
 
 ```cpp
@@ -143,7 +150,6 @@ void loop() {
   ledarray.update();  // Update the LED array with the new color data
 }
 ```
-![Example GIF](examples/demo_03_setColorTime_n/setColorTime_n.gif)
 
 *Image: setColorTime(n,r,g,b,starttime,trans_time) and update(); Example*
 
