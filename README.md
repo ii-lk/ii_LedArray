@@ -3,6 +3,8 @@
 ## Overview
 The `ii_LedArray` library is a versatile and user-friendly tool designed for controlling LED arrays with ease and efficiency. Ideal for projects involving LED displays, light animations, and interactive art installations.
 
+![Example GIF]([images/example.gif](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZtZmU5c2I3cDBlN3hvNjd0dHN6cXBsM2s1MzF2b293azB3MzRvZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2bFJgkERejbxbAtirj/giphy.gif))
+
 ## Features
 - **Ease of Use**: Simplify the process of controlling complex LED arrays.
 - **Custom Animations**: Support for creating custom light patterns and animations.
