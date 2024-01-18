@@ -5,17 +5,18 @@
 #include "colors.h"
 #include "pixel.h"
 
-class ii_LedArray {
+class ii_LedArray
+{
 private:
     Adafruit_NeoPixel strip;
-    Colors colors;
+
     int brightness;
     void changed();
     int patternstart;
     bool patterndir;
     int selectedpattern;
     bool blurmode;
-    Pixel* pixels = nullptr;
+    Pixel *pixels = nullptr;
     bool filled_;
     bool _changedb;
 
@@ -23,6 +24,7 @@ private:
     void allocatePixelsArray(int size);
 
 public:
+    Colors colors;
     // Constructor
     ii_LedArray();
     ii_LedArray(int pin, int ledcount);
@@ -69,26 +71,34 @@ public:
 
     // Get the number of LEDs in the strip
     int getLength();
-    //////////////////////////////////////////////////////////////////////
-    // Set the color of a specific LED using RGB values
-    void setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue);//4
 
     // Set the color of a specific LED using a 32-bit color value
-    void setColor(uint8_t index, uint32_t color);//2
+    void setColor(uint8_t index, uint32_t color);
+
+    // Set the color of a specific LED using RGB values
+    void setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue);
+
+    //
+    void setColorAll(uint32_t color);
+
+    // Set the same color for all LEDs
+    void setColorAll(uint8_t red, uint8_t green, uint8_t blue);
+
+    //////////////////////////////////////////////////////////////////////
+
+    // Set the color of a specific LED with a start time and duration using a 32-bit color value
+    void setColorTime(uint8_t index, uint32_t color, long start, long duration);
 
     // Set the color of a specific LED with a start time and duration
     void setColorTime(uint8_t index, uint8_t red, uint8_t green, uint8_t blue, long start, long duration);
 
-    // Set the color of a specific LED with a start time and duration using a 32-bit color value
-    void setColorTime(uint8_t index, uint32_t color, long start, long duration);
-    //////////////////////////////////////////////////////////////////////
-    // Set the same color for all LEDs
-    void setColorAll(uint8_t red, uint8_t green, uint8_t blue);
+    //
+    void setColorAllTime(uint32_t color, long start, long duration);
 
     // Set the same color for all LEDs with a start time and duration
-    void setColorAll(uint8_t red, uint8_t green, uint8_t blue, long start, long duration);
-    
-    //validations
+    void setColorAllTime(uint8_t red, uint8_t green, uint8_t blue, long start, long duration);
+
+    // validations
     bool checkRange(int n);
 };
 

@@ -1,140 +1,170 @@
 #include "pixel.h"
 
 // Constructor
-Pixel::Pixel() {
+Pixel::Pixel()
+{
     // Initialize member variables in the constructor if needed
     setStart(0);
     setDuration(0);
 }
 
 // Getter functions
-byte Pixel::getRed() const {
+byte Pixel::getRed() const
+{
     return r_;
 }
 
-byte Pixel::getGreen() const {
+byte Pixel::getGreen() const
+{
     return g_;
 }
 
-byte Pixel::getBlue() const {
+byte Pixel::getBlue() const
+{
     return b_;
 }
 
 // Getter functions for cached (C) RGB values
-byte Pixel::getTRed() const {
+byte Pixel::getTRed() const
+{
     return tr_;
 }
 
-byte Pixel::getTGreen() const {
+byte Pixel::getTGreen() const
+{
     return tg_;
 }
 
-byte Pixel::getTBlue() const {
+byte Pixel::getTBlue() const
+{
     return tb_;
 }
 
 // Getter functions for cached (C) RGB values
-byte Pixel::getLRed() const {
+byte Pixel::getLRed() const
+{
     return lr_;
 }
 
-byte Pixel::getLGreen() const {
+byte Pixel::getLGreen() const
+{
     return lg_;
 }
 
-byte Pixel::getLBlue() const {
+byte Pixel::getLBlue() const
+{
     return lb_;
 }
 
-uint32_t Pixel::getColor() {
+uint32_t Pixel::getColor()
+{
     return ((uint32_t)getRed() << 16) | ((uint32_t)getGreen() << 8) | getBlue();
 }
 // Get a specific color channel (0 for Red, 1 for Green, 2 for Blue)
-uint8_t Pixel::getColor(int n) {
-    switch (n) {
-        case 0:
-            return getRed();
-        case 1:
-            return getGreen();
-        default:
-            return getBlue();
+uint8_t Pixel::getColor(int n)
+{
+    switch (n)
+    {
+    case 0:
+        return getRed();
+    case 1:
+        return getGreen();
+    default:
+        return getBlue();
     }
 }
 
-uint8_t Pixel::getLastColor(int n) {
-    switch (n) {
-        case 0:
-            return getLRed();
-        case 1:
-            return getLGreen();
-        default:
-            return getLBlue();
+uint8_t Pixel::getLastColor(int n)
+{
+    switch (n)
+    {
+    case 0:
+        return getLRed();
+    case 1:
+        return getLGreen();
+    default:
+        return getLBlue();
     }
 }
 
-uint8_t Pixel::getTargetColor(int n) {
-    switch (n) {
-        case 0:
-            return getTRed();
-        case 1:
-            return getTGreen();
-        default:
-            return getTBlue();
+uint8_t Pixel::getTargetColor(int n)
+{
+    switch (n)
+    {
+    case 0:
+        return getTRed();
+    case 1:
+        return getTGreen();
+    default:
+        return getTBlue();
     }
 }
 
-long Pixel::getStart() const {
+long Pixel::getStart() const
+{
     return start_;
 }
 
-long Pixel::getDuration() const {
+long Pixel::getDuration() const
+{
     return duration_;
 }
 
-bool Pixel::isFilled() const {
+bool Pixel::isFilled() const
+{
     return filled_;
 }
 
 // Setter functions for RGB values
-void Pixel::setRed(byte r) {
+void Pixel::setRed(byte r)
+{
     r_ = r;
 }
 
-void Pixel::setGreen(byte g) {
+void Pixel::setGreen(byte g)
+{
     g_ = g;
 }
 
-void Pixel::setBlue(byte b) {
+void Pixel::setBlue(byte b)
+{
     b_ = b;
 }
 
-void Pixel::setStart(long start) {
+void Pixel::setStart(long start)
+{
     start_ = start;
 }
 
-void Pixel::setDuration(long duration) {
+void Pixel::setDuration(long duration)
+{
     duration_ = duration;
 }
 
-void Pixel::setFilled(bool filled) {
+void Pixel::setFilled(bool filled)
+{
     filled_ = filled;
 }
 
-void Pixel::setColor(int index,uint8_t v){
+void Pixel::setColor(int index, uint8_t v)
+{
     v = filter(v);
     switch (index)
     {
     case 0:
-            setRed(v);
-        case 1:
-            setGreen(v);
-        default:
-            setBlue(v);
+        setRed(v);
+        break;
+    case 1:
+        setGreen(v);
+        break;
+    default:
+        setBlue(v);
     }
 }
 
 // Set the RGB values and cached values along with start and duration
-void Pixel::setTargetColor(uint8_t r, uint8_t g, uint8_t b, long start, long duration) {
+void Pixel::setTargetColor(uint8_t r, uint8_t g, uint8_t b, long start, long duration)
+{
 
     tr_ = r;
     tg_ = g;
@@ -149,7 +179,8 @@ void Pixel::setTargetColor(uint8_t r, uint8_t g, uint8_t b, long start, long dur
 }
 
 // Set only the RGB values
-void Pixel::setColor(uint8_t r, uint8_t g, uint8_t b) {
+void Pixel::setColor(uint8_t r, uint8_t g, uint8_t b)
+{
     r_ = filter(r);
     g_ = filter(g);
     b_ = filter(b);
@@ -157,7 +188,8 @@ void Pixel::setColor(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 // Get the RGB values as an array
-uint8_t* Pixel::getColorArray() const {
+uint8_t *Pixel::getColorArray() const
+{
     static uint8_t colorArray[3];
     colorArray[0] = r_;
     colorArray[1] = g_;
@@ -165,6 +197,8 @@ uint8_t* Pixel::getColorArray() const {
     return colorArray;
 }
 
-uint8_t Pixel::filter(int color) {
-  return (color > 254) ? 254 : (color < 0) ? 0 : color;
+uint8_t Pixel::filter(int color)
+{
+    return (color > 254) ? 254 : (color < 0) ? 0
+                                             : color;
 }

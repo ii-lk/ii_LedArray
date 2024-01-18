@@ -1,5 +1,5 @@
 #include <ii_LedArray.h> 
-ii_LedArray strip1 = ii_LedArray(2, 6);
+ii_LedArray strip1 = ii_LedArray(4, 6);
 
 void setup() {
   Serial.begin(115200);
