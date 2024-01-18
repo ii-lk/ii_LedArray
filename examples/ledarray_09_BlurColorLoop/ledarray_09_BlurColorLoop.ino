@@ -22,7 +22,7 @@ void loop() {
   if (timer.isTime(LEDCHANGE, true)) { 
     int random_color_index = random(COLORS_COUNT);
     for(int i=0;i<ledarray1.getLength();i++){
-      ledarray1.setColorTime(i,colors.get(random_color_index), millis()+(i*60),300);
+      ledarray1.setColorTrans(i,colors.get(random_color_index), millis()+(i*60),300);
     }
   }
 

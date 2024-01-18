@@ -79,24 +79,24 @@ public:
     void setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue);
 
     //
-    void setColorAll(uint32_t color);
+    void setColor(uint32_t color);
 
     // Set the same color for all LEDs
-    void setColorAll(uint8_t red, uint8_t green, uint8_t blue);
+    void setColor(uint8_t red, uint8_t green, uint8_t blue);
 
     //////////////////////////////////////////////////////////////////////
 
     // Set the color of a specific LED with a start time and duration using a 32-bit color value
-    void setColorTime(uint8_t index, uint32_t color, long start, long duration);
+    void setColorTrans(uint8_t index, uint32_t color, long start, long duration);
 
     // Set the color of a specific LED with a start time and duration
-    void setColorTime(uint8_t index, uint8_t red, uint8_t green, uint8_t blue, long start, long duration);
+    void setColorTrans(uint8_t index, uint8_t red, uint8_t green, uint8_t blue, long start, long duration);
 
     //
-    void setColorAllTime(uint32_t color, long start, long duration);
+    void setColorTrans(uint32_t color, long start, long duration);
 
     // Set the same color for all LEDs with a start time and duration
-    void setColorAllTime(uint8_t red, uint8_t green, uint8_t blue, long start, long duration);
+    void setColorTrans(uint8_t red, uint8_t green, uint8_t blue, long start, long duration);
 
     // validations
     bool checkRange(int n);

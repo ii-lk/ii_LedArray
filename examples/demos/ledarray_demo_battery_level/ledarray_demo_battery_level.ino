@@ -17,18 +17,18 @@ void setup() {
   ledarray.setBlurMode(true);
   ledarray.begin();  // Initialize the LED strip
  
-  //ledarray.setColorAllTime(colors.get(c_orange),millis(),1000);  // Green
+  //ledarray.setColorTrans(colors.get(c_orange),millis(),1000);  // Green
 }
 bool active=true;
 void loop() {
   if (timer.isTime(REFRESH, true)) {
      if(active){
         for(int n=0;n<6;n++){
-          ledarray.setColorTime(5-n,colors.get(c_orange),millis()+(n*50),100);
+          ledarray.setColorTrans(5-n,colors.get(c_orange),millis()+(n*50),100);
         }
      }else{
       for(int n=0;n<4;n++){
-          ledarray.setColorTime(n,colors.get(c_green),millis()+(n*100),300);
+          ledarray.setColorTrans(n,colors.get(c_green),millis()+(n*100),300);
         }
      }
      active=!active;

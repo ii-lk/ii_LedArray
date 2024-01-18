@@ -29,9 +29,9 @@ void setup() {
 int color_index=0;
 void loop() {
   if (timer.isTime(COLORCHANGE, true)) {
-    ledarray1.setColorAllTime(colors.get(colors.rainbow[color_index]),millis(),500);
-    ledarray2.setColorAllTime(colors.get(colors.rainbow[color_index]),millis(),500);
-    ledarray3.setColorAllTime(colors.get(colors.rainbow[color_index]),millis(),500);
+    ledarray1.setColorTrans(colors.get(colors.rainbow[color_index]),millis(),500);
+    ledarray2.setColorTrans(colors.get(colors.rainbow[color_index]),millis(),500);
+    ledarray3.setColorTrans(colors.get(colors.rainbow[color_index]),millis(),500);
     color_index++;
     if(color_index==6){
       color_index=0; 

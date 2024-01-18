@@ -62,8 +62,6 @@ void loop() {
 }
 ```
 
-*Image: setColor(n,r,g,b) and show(); Example*
-
 ### LED Color Toggle : smooth transitions
 
 ![Example GIF](examples/demo_02_setColorAllTime/setColorAllTime.gif)
@@ -91,9 +89,9 @@ void loop() {
 
     // Toggle the entire LED array between red and blue every second
     if (colorselect) {
-        ledarray.setColorAllTime(255, 0, 0, millis(), 1000); // Set all LEDs to red
+        ledarray.setColorTrans(255, 0, 0, millis(), 1000); // Set all LEDs to red
     } else {
-        ledarray.setColorAllTime(0, 0, 255, millis(), 1000); // Set all LEDs to blue
+        ledarray.setColorTrans(0, 0, 255, millis(), 1000); // Set all LEDs to blue
     }
 
     colorselect = !colorselect;  // Toggle the colorselect flag
@@ -102,8 +100,6 @@ void loop() {
   ledarray.update();  // Update the LED array with the new color data
 }
 ```
-
-*Image: setColorAllTime(r,g,b,starttime,trans_time) and update(); Example*
 
 
 ### LED Ripple Effect : smooth transitions 
@@ -135,12 +131,12 @@ void loop() {
     if (colorselect) {
       // Sequentially set each LED to red (RGB: 255, 0, 0) with staggered timing
       for(int n = 0; n < 4; n++){
-        ledarray.setColorTime(n, 255, 0, 0, millis() + (n * 100), 400);
+        ledarray.setColorTrans(n, 255, 0, 0, millis() + (n * 100), 400);
       }
     } else {
       // Sequentially set each LED to blue (RGB: 0, 0, 255) with staggered timing
       for(int n = 0; n < 4; n++){
-        ledarray.setColorTime(n, 0, 0, 255, millis() + (n * 100), 400);
+        ledarray.setColorTrans(n, 0, 0, 255, millis() + (n * 100), 400);
       }
     }
 
@@ -150,10 +146,6 @@ void loop() {
   ledarray.update();  // Update the LED array with the new color data
 }
 ```
-
-*Image: setColorTime(n,r,g,b,starttime,trans_time) and update(); Example*
-
-
 
 
 ### [More Examples as needed]

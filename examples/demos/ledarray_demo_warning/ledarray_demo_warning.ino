@@ -10,10 +10,10 @@ void setup() {
 
 void loop() {
   for (int n = 0; n < 3; n++) {
-    ledarray.setColorAll(colors.get(c_red));
+    ledarray.setColor(colors.get(c_red));
     ledarray.show();
     delay(40);
-    ledarray.setColorAll(colors.get(c_black));
+    ledarray.setColor(colors.get(c_black));
     ledarray.show();
     delay(100);
   }

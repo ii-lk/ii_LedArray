@@ -157,7 +157,7 @@ void ii_LedArray::setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t bl
 }
 
 //////////////////////////////////////////////////////////////////////////////
-void ii_LedArray::setColorAll(uint32_t color)
+void ii_LedArray::setColor(uint32_t color)
 {
     for (int n = 0; n < strip.numPixels(); n++)
     {
@@ -165,7 +165,7 @@ void ii_LedArray::setColorAll(uint32_t color)
     }
 }
 
-void ii_LedArray::setColorAll(uint8_t red, uint8_t green, uint8_t blue)
+void ii_LedArray::setColor(uint8_t red, uint8_t green, uint8_t blue)
 {
     for (int n = 0; n < strip.numPixels(); n++)
     {
@@ -173,7 +173,7 @@ void ii_LedArray::setColorAll(uint8_t red, uint8_t green, uint8_t blue)
     }
 }
 
-void ii_LedArray::setColorTime(uint8_t index, uint8_t red, uint8_t green, uint8_t blue, long start, long duration)
+void ii_LedArray::setColorTrans(uint8_t index, uint8_t red, uint8_t green, uint8_t blue, long start, long duration)
 {
     if (!checkRange(index))
     {
@@ -182,7 +182,7 @@ void ii_LedArray::setColorTime(uint8_t index, uint8_t red, uint8_t green, uint8_
     pixels[index].setTargetColor(red, green, blue, start, duration);
 }
 
-void ii_LedArray::setColorTime(uint8_t index, uint32_t color, long start, long duration)
+void ii_LedArray::setColorTrans(uint8_t index, uint32_t color, long start, long duration)
 {
     if (!checkRange(index))
     {
@@ -191,7 +191,7 @@ void ii_LedArray::setColorTime(uint8_t index, uint32_t color, long start, long d
     pixels[index].setTargetColor((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff, start, duration);
 }
 
-void ii_LedArray::setColorAllTime(uint32_t color, long start, long duration)
+void ii_LedArray::setColorTrans(uint32_t color, long start, long duration)
 {
     for (int n = 0; n < getLength(); n++)
     {
@@ -199,7 +199,7 @@ void ii_LedArray::setColorAllTime(uint32_t color, long start, long duration)
     }
 }
 
-void ii_LedArray::setColorAllTime(uint8_t red, uint8_t green, uint8_t blue, long start, long duration)
+void ii_LedArray::setColorTrans(uint8_t red, uint8_t green, uint8_t blue, long start, long duration)
 {
     for (int n = 0; n < getLength(); n++)
     {

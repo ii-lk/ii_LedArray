@@ -46,10 +46,10 @@ void loop() {
     Serial.println(mapleds);
 
     for (int n = 0; n < mapleds; n++) {
-      ledarray.setColorTime(n, colors.get(c_green), millis(), 100);
+      ledarray.setColorTrans(n, colors.get(c_green), millis(), 100);
     }
     for (int n = mapleds; n < 6; n++) {
-      ledarray.setColorTime(n, 150, 0, 0, millis(), 200);
+      ledarray.setColorTrans(n, 150, 0, 0, millis(), 200);
     }
   }
   if (timer.isTime(LEDUPDATE, true)) {

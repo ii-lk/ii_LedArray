@@ -21,7 +21,7 @@ void loop() {
 
   if (timer.isTime(LEDCHANGE, true)) {
     int random_color_index = random(COLORS_COUNT);
-    ledarray.setColorAllTime(colors.get(random_color_index), millis(), 800);
+    ledarray.setColorTrans(colors.get(random_color_index), millis(), 800);
   }
 
   if (timer.isTime(LEDUPDATE,false)) {

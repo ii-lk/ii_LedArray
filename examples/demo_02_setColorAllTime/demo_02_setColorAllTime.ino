@@ -18,9 +18,9 @@ void loop() {
 
     // Toggle the entire LED array between red and blue every second
     if (colorselect) {
-        ledarray.setColorAllTime(255, 0, 0, millis(), 1000); // Set all LEDs to red
+        ledarray.setColorTrans(255, 0, 0, millis(), 1000); // Set all LEDs to red
     } else {
-        ledarray.setColorAllTime(0, 0, 255, millis(), 1000); // Set all LEDs to blue
+        ledarray.setColorTrans(0, 0, 255, millis(), 1000); // Set all LEDs to blue
     }
 
     colorselect = !colorselect;  // Toggle the colorselect flag

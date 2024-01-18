@@ -20,12 +20,12 @@ void loop() {
     if (colorselect) {
       // Set the first LED to red (RGB: 255, 0, 0) and transition over 1000ms
       for(int n=0;n<6;n++){
-        ledarray.setColorTime(n,255, 0, 0, millis()+(n*100), 400);
+        ledarray.setColorTrans(n,255, 0, 0, millis()+(n*100), 400);
       }
     } else {
       // Set the first LED to blue (RGB: 0, 0, 255) and transition over 1000ms
       for(int n=0;n<6;n++){
-        ledarray.setColorTime(n,0, 0, 255, millis()+(n*100), 400);
+        ledarray.setColorTrans(n,0, 0, 255, millis()+(n*100), 400);
       }
     }
 

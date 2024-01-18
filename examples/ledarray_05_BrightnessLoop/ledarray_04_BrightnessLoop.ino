@@ -10,13 +10,13 @@ void setup() {
 void loop() {
   for (int b = 0; b < 100; b++) {
     ledarray.setBrightness(b);
-    ledarray.setColorAll(255, 255, 255);
+    ledarray.setColor(255, 255, 255);
     ledarray.show();
     delay(20);
   }
   for (int b = 100; b > 0; b--) {
     ledarray.setBrightness(b);
-    ledarray.setColorAll(255, 255, 255);
+    ledarray.setColor(255, 255, 255);
     ledarray.show();
     delay(20);
   }

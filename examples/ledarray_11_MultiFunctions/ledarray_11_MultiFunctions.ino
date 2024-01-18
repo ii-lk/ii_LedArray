@@ -52,15 +52,15 @@ void loop() {
 
   if (timer.isTime(LEDHEAD, false)) {
     if (head) {
-      ledarray3.setColorTime(0, colors.get(c_red), millis(), 500);
-      ledarray3.setColorTime(1, colors.get(c_red), millis(), 500);
-      ledarray3.setColorTime(2, colors.get(c_white), millis(), 500);
-      ledarray3.setColorTime(3, colors.get(c_white), millis(), 500);
+      ledarray3.setColorTrans(0, colors.get(c_red), millis(), 500);
+      ledarray3.setColorTrans(1, colors.get(c_red), millis(), 500);
+      ledarray3.setColorTrans(2, colors.get(c_white), millis(), 500);
+      ledarray3.setColorTrans(3, colors.get(c_white), millis(), 500);
     } else {
-      ledarray3.setColorTime(0, colors.get(c_white), millis(), 500);
-      ledarray3.setColorTime(1, colors.get(c_white), millis(), 500);
-      ledarray3.setColorTime(2, colors.get(c_red), millis(), 500);
-      ledarray3.setColorTime(3, colors.get(c_red), millis(), 500);
+      ledarray3.setColorTrans(0, colors.get(c_white), millis(), 500);
+      ledarray3.setColorTrans(1, colors.get(c_white), millis(), 500);
+      ledarray3.setColorTrans(2, colors.get(c_red), millis(), 500);
+      ledarray3.setColorTrans(3, colors.get(c_red), millis(), 500);
     }
     head = !head;
   }
@@ -72,9 +72,9 @@ void loop() {
       tailn = random(6);
     }
     
-    ledarray1.setColorAllTime(colors.get(c_white), millis(),100);
+    ledarray1.setColorTrans(colors.get(c_white), millis(),100);
     for (int i = 0; i < tailn ; i++) {
-      ledarray1.setColorTime(i, colors.get(c_blue), millis()+(i*50), 150);
+      ledarray1.setColorTrans(i, colors.get(c_blue), millis()+(i*50), 150);
     }
   }
 

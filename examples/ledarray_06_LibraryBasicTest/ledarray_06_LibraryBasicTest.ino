@@ -34,12 +34,12 @@ void loop() {
   delay(1000);  // Delay after completing the loop
 
   // Set all LEDs to green
-  ledarray.setColorAll(colors.get(c_green));  // Set all LEDs to green
+  ledarray.setColor(colors.get(c_green));  // Set all LEDs to green
   ledarray.show();                            // Update the strip to apply the color change
   delay(1000);                                // Delay after setting all LEDs to green
 
   // Set all LEDs to red using RGB components extracted from a predefined color
-  ledarray.setColorAll(colors.get(c_red, 0), colors.get(c_red, 1), colors.get(c_red, 2));  // Set all LEDs to red
+  ledarray.setColor(colors.get(c_red, 0), colors.get(c_red, 1), colors.get(c_red, 2));  // Set all LEDs to red
   ledarray.show();                                                                         // Update the strip to apply the color change
   delay(1000);                                                                             // Delay after setting all LEDs to red
 
