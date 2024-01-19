@@ -63,8 +63,8 @@ void loop() {
 ```
 
 ### LED Color Toggle : smooth transitions
-
-![Example GIF](examples/demo_02_setColorAllTime/setColorAllTime.gif)
+ 
+<img src="examples/demo_02_setColorAllTime/setColorAllTime.gif" style="width:100%;">
 
 LED Color Toggle: Demonstrates toggling all LEDs between red and blue every second, using ii_LedArray for smooth transitions and color updates.
 
