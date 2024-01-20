@@ -1,6 +1,6 @@
 #include <ii_LedArray.h>
 
-ii_LedArray ledarray = ii_LedArray(4, 6);  // Initialize the LED array on pin 6 with 4 LEDs
+ii_LedArray ledarray = ii_LedArray(4, 6);  // Initialize the LED array on pin 4 with 6 LEDs
 
 void setup() {
   ledarray.begin();      // Initialize the LED strip

@@ -2,6 +2,11 @@
 
 The ii_LedArray library is a comprehensive and versatile software solution designed for controlling WS2812 LED strips using ESP32 microcontrollers. It offers a wide range of features that cater to both basic and advanced LED strip manipulation, making it suitable for hobbyists, artists, and engineers alike.
 
+```cpp
+#include <ii_LedArray.h>
+
+ii_LedArray ledarray = ii_LedArray(GPIO_pin, LEDs_count);  // Initialize
+```
 
 | ![Rainbow Effect](examples/ledarray_07_MoveRainbow/rainbow.gif) | ![Face Color Change](examples/ledarray_11_MultiFunctions/face_color_change.gif) |
 |:--------------------------------------------------------------:|:--------------------------------------------------------------:|
@@ -157,7 +162,7 @@ This sketch illustrates the use of ii_LedArray library functions to alternate co
 ```cpp
 #include <ii_LedArray.h>
 
-ii_LedArray ledarray = ii_LedArray(4, 6);  // Initialize the LED array on pin 6 with 4 LEDs
+ii_LedArray ledarray = ii_LedArray(4, 6);  // Initialize the LED array on pin 4 with 6 LEDs
 
 void setup() {
   ledarray.begin();      // Initialize the LED strip
@@ -185,7 +190,7 @@ LED Color Toggle: Demonstrates toggling all LEDs between red and blue every seco
 ```cpp
 #include <ii_LedArray.h>  // Include the ii_LedArray library
 
-// Initialize an LED array on pin 6 with 4 LEDs
+// Initialize an LED array on pin 4 with 6 LEDs
 ii_LedArray ledarray = ii_LedArray(4, 6);
 
 long ltime;        // Variable to store the last time the LED colors were updated
@@ -224,7 +229,7 @@ Create a ripple effect across LEDs, sequentially shifting colors with time delay
 ```cpp
 #include <ii_LedArray.h>  // Include the ii_LedArray library
 
-// Initialize an LED array on pin 6 with 4 LEDs
+// Initialize an LED array on pin 4 with 6 LEDs
 ii_LedArray ledarray = ii_LedArray(4, 6);
 
 long ltime;        // Variable to store the last time the LED color was updated
@@ -258,9 +263,6 @@ void loop() {
   ledarray.update();  // Update the LED array with the new color data
 }
 ```
-## More Examples
-
-This folder contains example sketches that demonstrate how to use the ii_LedArray library to control WS2812 LED strips. Each example is self-contained and illustrates a specific feature or function of the library.
 
 ## Example Sketches
 
@@ -277,8 +279,7 @@ Below is a list of the example sketches available. Click on an example to view t
 - [`Blur Color Loop`](examples/ledarray_09_BlurColorLoop.ino) - Applies a blurring effect in a loop.
 - [`Multi Strips`](examples/ledarray_10_MultiStrips.ino) - Manages multiple LED strips at once.
 - [`Multi Functions`](examples/ledarray_11_MultiFunctions.ino) - Combines several functions to create complex effects.
-
-Feel free to download these sketches, try them out, and modify them to suit your project needs. For more information about each example, refer to the comments within the sketches themselves.
+ 
 
  
 ## Contributing
