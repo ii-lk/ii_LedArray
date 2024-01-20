@@ -10,15 +10,25 @@ The ii_LedArray library is a comprehensive and versatile software solution desig
 ### Key Features:
 
 1. **Dynamic Control**: Control individual LEDs or the entire strip with ease. Set specific colors to LEDs or create vibrant patterns across the strip.
+
 ![Example GIF](examples/demos/01_Dynamic_Control.gif)
+
 2. **Color Transitions**: Implement smooth color transitions over time. This feature allows for visually appealing effects, ideal for creating mood lighting, visual alarms, or enhancing aesthetic projects.
+
 ![Example GIF](examples/demos/02_Color_Transitions.gif)
+
 3. **Brightness Management**: Adjust the brightness of the entire strip or individual LEDs, providing flexibility in creating the desired lighting effect while managing power consumption.
+
 ![Example GIF](examples/demos/03_brightness.gif)
+
 4. **Test Functions**: Includes built-in test functions to validate the functionality of the LED strip. This helps in quick troubleshooting and verification.
+
 ![Example GIF](examples/demos/04_test.gif)
+
 5. **Pattern Shifting**: Move colors across the strip in a specified direction, enabling dynamic and engaging light movements, which can be synchronized with events, music, or actions.
+
 ![Example GIF](examples/demos/05_shift.gif)
+
 6. **Real-time Updates**: The library supports real-time updates to the LED strip, ensuring immediate reflection of changes in lighting patterns or colors.
 
 7. **Efficient Memory Management**: Dynamic allocation and deallocation of memory for pixel data ensure efficient use of resources, crucial for microcontroller-based projects.
