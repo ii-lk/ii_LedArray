@@ -110,7 +110,7 @@ long Pixel::getDuration() const
     return duration_;
 }
 
-bool Pixel::isFilled() const
+bool Pixel::isUpdated() const
 {
     return filled_;
 }

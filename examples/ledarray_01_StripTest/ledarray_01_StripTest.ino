@@ -8,7 +8,7 @@ void setup() {
   strip1.begin();
 
   // Run a test on all LEDs
-  strip1.testAll();
+  strip1.testColors();
 
   // Clear the strip after the test
   strip1.clear();

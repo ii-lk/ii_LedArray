@@ -1,36 +1,101 @@
-# ii_LedArray Library
+## ii_LedArray Library for WS2812 LED Strips
 
-## Overview
-The `ii_LedArray` library is a versatile and user-friendly tool designed for controlling LED arrays with ease and efficiency. Ideal for projects involving LED displays, light animations, and interactive art installations.
+| ![Rainbow Effect](examples/ledarray_07_MoveRainbow/rainbow.gif) | ![Face Color Change](examples/ledarray_11_MultiFunctions/face_color_change.gif) |
+|:--------------------------------------------------------------:|:--------------------------------------------------------------:|
+| ![Ring Rainbow](examples/ledarray_11_MultiFunctions/ring_rainbow.gif) | ![Tail Color Change](examples/ledarray_11_MultiFunctions/tail_color_change.webp) |
 
-![Example GIF](examples/ledarray_07_MoveRainbow/rainbow.gif)
+The ii_LedArray library is a comprehensive and versatile software solution designed for controlling WS2812 LED strips using ESP32 microcontrollers. It offers a wide range of features that cater to both basic and advanced LED strip manipulation, making it suitable for hobbyists, artists, and engineers alike.
 
-*GIF: examples/ledarray_07_MoveRainbow*
+### Key Features:
 
-## Features
-- **Ease of Use**: Simplify the process of controlling complex LED arrays.
-- **Custom Animations**: Support for creating custom light patterns and animations.
-- **Highly Configurable**: Adjustable settings to suit various LED array configurations.
+1. **Dynamic Control**: Control individual LEDs or the entire strip with ease. Set specific colors to LEDs or create vibrant patterns across the strip.
+![Example GIF](examples/demos/01_Dynamic_Control.gif)
+2. **Color Transitions**: Implement smooth color transitions over time. This feature allows for visually appealing effects, ideal for creating mood lighting, visual alarms, or enhancing aesthetic projects.
+![Example GIF](examples/demos/02_Color_Transitions.gif)
+3. **Brightness Management**: Adjust the brightness of the entire strip or individual LEDs, providing flexibility in creating the desired lighting effect while managing power consumption.
+![Example GIF](examples/demos/03_brightness.gif)
+4. **Test Functions**: Includes built-in test functions to validate the functionality of the LED strip. This helps in quick troubleshooting and verification.
+![Example GIF](examples/demos/04_test.gif)
+5. **Pattern Shifting**: Move colors across the strip in a specified direction, enabling dynamic and engaging light movements, which can be synchronized with events, music, or actions.
+![Example GIF](examples/demos/05_shift.gif)
+6. **Real-time Updates**: The library supports real-time updates to the LED strip, ensuring immediate reflection of changes in lighting patterns or colors.
 
-![Example GIF](examples/ledarray_11_MultiFunctions/face_color_change.gif)
-![Example GIF](examples/ledarray_11_MultiFunctions/ring_rainbow.gif)
-![Example GIF](examples/ledarray_11_MultiFunctions/tail_color_change.webp)
+7. **Efficient Memory Management**: Dynamic allocation and deallocation of memory for pixel data ensure efficient use of resources, crucial for microcontroller-based projects.
+
+8. **RMT Integration**: Utilizes the RMT (Remote Control) peripheral of the ESP32 for accurate timing control, essential for the precise operation of WS2812 LEDs.
+
+9. **Extensible Design**: Structured to be easily extendable for future enhancements, whether for personal projects or broader community contributions.
+
+### Use Cases:
+
+- **Home Automation**: Integrating LED strips into home automation for mood lighting, notifications, or aesthetic enhancements.
+- **Event Decorations**: Creating dynamic and programmable lighting setups for events, parties, or festive occasions.
+- **Interactive Art Installations**: Developing interactive art pieces where lighting plays a crucial role.
+- **Educational Purposes**: Teaching the basics of LED control, programming, and microcontroller interaction.
+
+### Getting Started:
+
+This library is designed for ease of use. Simply include the `ii_LedArray.h` header in your Arduino sketch, initialize the library with your LED strip specifications, and you're ready to bring your LED projects to life.
+
+Whether you're a seasoned developer or a hobbyist starting with LEDs, the ii_LedArray library offers the functionality and ease of use to bring your lighting ideas to fruition.
 
 
-*GIF: examples/ledarray_11_MultiFunctions*
+## Installation for Arduino IDE
 
+1. **Download the Library**:
+   - Navigate to the `ii_LedArray` GitHub repository at [ii-lk/ii_LedArray](https://github.com/ii-lk/ii_LedArray.git).
+   - Click on the "Code" button and select "Download ZIP".
 
-## Installation
-1. Download the `ii_LedArray` library.
-2. Extract the downloaded file.
-3. Place the `ii_LedArray` folder in your Arduino 'libraries' directory.
-4. Restart the Arduino IDE.
+2. **Install in Arduino IDE**:
+   - Open the Arduino IDE.
+   - Go to `Sketch` > `Include Library` > `Add .ZIP Library...`.
+   - Navigate to the downloaded ZIP file and select it. The IDE will install the library.
 
-## Usage
+3. **Include the Library in Your Project**:
+   - In your Arduino sketch, go to `Sketch` > `Include Library` and select `ii_LedArray`.
+   - This adds the necessary `#include` statements to your sketch.
+
+## Installation for Visual Studio Code with PlatformIO
+
+Both methods for Visual Studio Code with PlatformIO offer effective ways to include the `ii_LedArray` library in your projects. The first method gives you manual control over the library files, while the second method automates the dependency management through PlatformIO.
+
+#### Method 1: Download and Copy to Lib Folder
+
+1. **Clone the Repository**:
+   - Open Visual Studio Code.
+   - Open the integrated terminal (`Terminal` > `New Terminal`).
+   - Clone the repository by executing:
+     ```
+     git clone https://github.com/ii-lk/ii_LedArray.git
+     ```
+   - This downloads the library into a folder named `ii_LedArray`.
+
+2. **Copy the Library to Your Project**:
+   - In PlatformIO, open your project.
+   - Manually copy the `ii_LedArray` folder into the `lib` directory of your PlatformIO project.
+
+#### Method 2: Use `lib_deps` in `platformio.ini`
+
+1. **Edit `platformio.ini`**:
+   - Open your PlatformIO project in Visual Studio Code.
+   - Locate the `platformio.ini` file in the root of your project.
+
+2. **Add Library Dependency**:
+   - Add the following line under the `[env]` section of your `platformio.ini` file:
+     ```
+     lib_deps = https://github.com/ii-lk/ii_LedArray.git
+     ```
+   - This tells PlatformIO to automatically download and manage the `ii_LedArray` library as a dependency.
+
+### Usage
+
+After installation, include the library in your project by adding `#include <ii_LedArray.h>` at the beginning of your code. Ensure to check the library's documentation for detailed usage instructions and example code.
+
 To use the `ii_LedArray` library in your Arduino sketches, include it at the top of your code:
 ```cpp
 #include <ii_LedArray.h>
 ```
+ 
 
 ## Examples
 
@@ -64,7 +129,7 @@ void loop() {
 
 ### LED Color Toggle : smooth transitions
  
-<img src="examples/demo_02_setColorAllTime/setColorAllTime.gif" style="width:100%;">
+![Example GIF](examples/demo_02_setColorAllTime/setColorAllTime.gif)
 
 LED Color Toggle: Demonstrates toggling all LEDs between red and blue every second, using ii_LedArray for smooth transitions and color updates.
 
@@ -144,18 +209,29 @@ void loop() {
   ledarray.update();  // Update the LED array with the new color data
 }
 ```
+# More Examples
 
+This folder contains example sketches that demonstrate how to use the ii_LedArray library to control WS2812 LED strips. Each example is self-contained and illustrates a specific feature or function of the library.
 
-### [More Examples as needed]
+## Example Sketches
 
-## Practical Usage
-- **Decorative Lighting**: Create dynamic lighting displays for home or commercial spaces.
-- **Interactive Art**: Develop interactive LED installations for art projects.
-- **Educational Projects**: Teach students about electronics and programming through engaging LED projects.
+Below is a list of the example sketches available. Click on an example to view the source code.
 
-## Images and GIFs
-- The images and GIFs in this README illustrate the potential applications and effects achievable with the `ii_LedArray` library. Actual implementation might vary based on your specific hardware and software setup.
+- [`Strip Test`](examples/ledarray_01_StripTest.ino) - Tests the LEDs on the strip by cycling through colors.
+- [`Write Color`](examples/ledarray_02_WriteColor.ino) - Demonstrates how to set a single LED to a specific color.
+- [`Write Color All`](examples/ledarray_03_WriteColorAll.ino) - Shows how to set the entire strip to a uniform color.
+- [`Write Color Loop`](examples/ledarray_04_WriteColorLoop.ino) - Loops through colors on the strip.
+- [`Brightness Loop`](examples/ledarray_04_BrightnessLoop.ino) - Cycles through different brightness levels.
+- [`Library Basic Test`](examples/ledarray_06_LibraryBasicTest.ino) - Checks basic functionality of the library.
+- [`Move Rainbow`](examples/ledarray_07_MoveRainbow.ino) - Creates a moving rainbow effect across the strip.
+- [`Blur Colors`](examples/ledarray_08_BlurColors.ino) - Softens the transitions between colors.
+- [`Blur Color Loop`](examples/ledarray_09_BlurColorLoop.ino) - Applies a blurring effect in a loop.
+- [`Multi Strips`](examples/ledarray_10_MultiStrips.ino) - Manages multiple LED strips at once.
+- [`Multi Functions`](examples/ledarray_11_MultiFunctions.ino) - Combines several functions to create complex effects.
 
+Feel free to download these sketches, try them out, and modify them to suit your project needs. For more information about each example, refer to the comments within the sketches themselves.
+
+ 
 ## Contributing
 We welcome contributions to enhance the `ii_LedArray` library. Feel free to fork the repository, make your changes, and submit a pull request.
 

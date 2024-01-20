@@ -30,7 +30,7 @@ public:
 
     long getStart() const;
     long getDuration() const;
-    bool isFilled() const;
+    bool isUpdated() const;
 
     // Setter functions for RGB values
     void setColor(int index, uint8_t v);

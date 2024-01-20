@@ -60,7 +60,7 @@ void ii_LedArray::test()
     }
 }
 
-void ii_LedArray::testAll()
+void ii_LedArray::testColors()
 {
     for (int c = colors.getColorsCount() - 1; c > -1; c--)
     {
@@ -88,16 +88,26 @@ void ii_LedArray::send()
 {
     if (_changedb)
     {
-
         for (int i = 0; i < getLength(); i++)
         {
-            send_ws2812_color(pixels[i].getRed(), pixels[i].getGreen(), pixels[i].getBlue());
+            if (brightness_p == 1.0)
+            {
+                send_ws2812_color(pixels[i].getRed(), pixels[i].getGreen(), pixels[i].getBlue());
+            }
+            else
+            {
+                send_ws2812_color(bright(pixels[i].getRed()), bright(pixels[i].getGreen()), bright(pixels[i].getBlue()));
+            }
         }
         send_reset();
         _changedb = false;
     }
 }
 
+int ii_LedArray::bright(int color)
+{
+    return (int)((float)color * brightness_p);
+}
 void ii_LedArray::changed()
 {
     _changedb = true;
@@ -120,7 +130,7 @@ int ii_LedArray::getBrightness()
     return brightness;
 }
 
-bool ii_LedArray::isFilled() const
+bool ii_LedArray::isUpdated() const
 {
     return filled_;
 }
@@ -222,14 +232,14 @@ bool ii_LedArray::checkRange(int n)
 }
 ////////////////////////////////////////////////////////////////////////////////
 
-void ii_LedArray::_patternAllColors(bool changedir)
+void ii_LedArray::testColors(bool dir)
 {
     if (!patterndir)
     {
         patternstart++;
         if (patternstart == LED_COUNT)
         {
-            if (changedir)
+            if (dir)
             {
                 patterndir = true;
             }
@@ -241,10 +251,11 @@ void ii_LedArray::_patternAllColors(bool changedir)
     }
     else
     {
+
         patternstart--;
         if (patternstart == 0)
         {
-            if (changedir)
+            if (dir)
             {
                 patterndir = false;
             }

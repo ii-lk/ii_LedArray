@@ -6,118 +6,101 @@
 #include "colors.h"
 #include "pixel.h"
 
+/**
+ * ii_LedArray Class for controlling WS2812 LED strips.
+ * This class provides functionality to control LED strips, including setting colors,
+ * managing transitions, brightness control, and moving patterns. It utilizes the RMT peripheral
+ * of the ESP32 for precise timing required by WS2812 LEDs.
+ */
 class ii_LedArray
 {
 private:
-    int LED_COUNT;
-    int GPIO_NUM;
+    int LED_COUNT; // Number of LEDs in the strip
+    int GPIO_NUM;  // GPIO pin number connected to the LED strip
 
-    bool MODE_UPDATE;
+    bool MODE_UPDATE; // Flag to track if an update is needed
 
-    // You can define a list of channels and iterate through them
+    // Array of available RMT channels on ESP32
     const rmt_channel_t availableChannels[8] = {RMT_CHANNEL_0, RMT_CHANNEL_1, RMT_CHANNEL_2, RMT_CHANNEL_3, RMT_CHANNEL_4, RMT_CHANNEL_5, RMT_CHANNEL_6, RMT_CHANNEL_7};
-    rmt_channel_t selectedChannel = RMT_CHANNEL_0;
+    rmt_channel_t selectedChannel = RMT_CHANNEL_0; // Selected RMT channel
 
-// WS2812 Timing (in ticks, assuming 80MHz clock for RMT)
+    // WS2812 Timing constants (in ticks)
 #define WS2812_T0H 14   // 350ns
 #define WS2812_T0L 28   // 700ns
 #define WS2812_T1H 28   // 700ns
 #define WS2812_T1L 14   // 350ns
 #define WS2812_RESET 50 // >50us
 
-    int brightness;
-    float brightness_p;
-    void changed();
-    int patternstart;
-    bool patterndir;
-    int selectedpattern;
-    Pixel *pixels = nullptr;
+    int brightness;            // Brightness level (0-100)
+    float brightness_p = 1.0f; // Brightness percentage
+    int bright(int color);     // Function to calculate brightness-adjusted color
+    void changed();            // Function to indicate a change in LED state
+    int patternstart;          // Start index for patterns
+    bool patterndir;           // Direction for pattern movement
+    int selectedpattern;       // Index of the selected pattern
+    Pixel *pixels = nullptr;   // Dynamic array to store pixel data
     bool filled_;
-    bool _changedb;
+    bool _changedb; // Flag to indicate if brightness has changed
+
+    void setFilled(bool filled); // Function to set the filled state
 
     // Function to allocate memory for the pixel array
     void allocatePixelsArray(int size);
 
+    // Function to setup RMT channel for LED control
     bool setupRMT(rmt_channel_t channel);
 
+    // Functions to send data to WS2812 LEDs
     void send_ws2812_bit(bool bitVal);
     void send_ws2812_color(uint8_t red, uint8_t green, uint8_t blue);
     void send_reset();
+    void send(); // Function to update the LED strip with current pixel values
 
 public:
-    // Show the current LED colors
-    void send();
+    Colors colors; // Colors class instance for predefined colors
 
-    Colors colors;
-    // Constructor
+    // Constructors
     ii_LedArray();
     ii_LedArray(int pin, int ledcount);
 
     // Initialize the LED strip
     void begin();
 
-    // Test the LED strip with color transitions
-    void test();
+    //***Strip Test Functions***
+    void test();               // Test the LED strip with RED, GREEN, BLUE
+    void testColors();         // Test the LED strip with all available colors
+    void testColors(bool dir); // Create a pattern with all available colors and shift it
 
-    // Test the LED strip with all available colors
-    void testAll();
+    // Brightness control functions
+    void setBrightness(int bright); // Set brightness (0-100)
+    int getBrightness();            // Get current brightness
 
-    // Clear all colors on the LED strip
-    void clear();
+    // Functions to set colors with and without transitions
+    void setColor(uint8_t index, uint32_t color);                           // Set a specific LED to a 32-bit color
+    void setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue); // Set a specific LED to an RGB color
+    void setColor(uint32_t color);                                          // Set all LEDs to a 32-bit color
+    void setColor(uint8_t red, uint8_t green, uint8_t blue);                // Set all LEDs to an RGB color
 
-    // Update the LED strip with any pixel animations
+    // Functions to set colors with transition effects
+    void setColorTrans(uint8_t index, uint32_t color, long start, long duration);                           // Set a specific LED to a 32-bit color with transition
+    void setColorTrans(uint8_t index, uint8_t red, uint8_t green, uint8_t blue, long start, long duration); // Set a specific LED to an RGB color with transition
+    void setColorTrans(uint32_t color, long start, long duration);                                          // Set all LEDs to a 32-bit color with transition
+    void setColorTrans(uint8_t red, uint8_t green, uint8_t blue, long start, long duration);                // Set all LEDs to an RGB color with transition
+
+    void clear(); // Clear all colors on the LED strip
+
+    // Function to update the LED strip. This should be called frequently to ensure smooth transitions.
     bool update();
 
-    // Set the brightness of the LED strip
-    void setBrightness(int bright); // Brightness range: 0-100
+    bool isUpdated() const; // Check if the transition is completed
 
-    // Get the brightness of the LED strip
-    int getBrightness();
+    int getLength(); // Get the number of LEDs in the strip
 
-    // Get the color of a specific LED
-    uint32_t getColor(int index);
+    uint32_t getColor(int index); // Get the color of a specific LED
 
-    // Create a pattern with all available colors
-    void _patternAllColors(bool changedir);
+    bool checkRange(int n); // Check if an LED index is within the valid range
 
-    // Move colors in the LED strip in a specified direction
-    void move(bool direction);
-
-    bool isFilled() const;
-
-    void setFilled(bool filled);
-
-    // Get the number of LEDs in the strip
-    int getLength();
-
-    // Set the color of a specific LED using a 32-bit color value
-    void setColor(uint8_t index, uint32_t color);
-
-    // Set the color of a specific LED using RGB values
-    void setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue);
-
-    //
-    void setColor(uint32_t color);
-
-    // Set the same color for all LEDs
-    void setColor(uint8_t red, uint8_t green, uint8_t blue);
-
-    //////////////////////////////////////////////////////////////////////
-
-    // Set the color of a specific LED with a start time and duration using a 32-bit color value
-    void setColorTrans(uint8_t index, uint32_t color, long start, long duration);
-
-    // Set the color of a specific LED with a start time and duration
-    void setColorTrans(uint8_t index, uint8_t red, uint8_t green, uint8_t blue, long start, long duration);
-
-    //
-    void setColorTrans(uint32_t color, long start, long duration);
-
-    // Set the same color for all LEDs with a start time and duration
-    void setColorTrans(uint8_t red, uint8_t green, uint8_t blue, long start, long duration);
-
-    // validations
-    bool checkRange(int n);
+    void move(bool direction); // Move colors in a specified direction
 };
 
 #endif
