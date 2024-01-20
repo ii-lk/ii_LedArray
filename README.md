@@ -1,10 +1,11 @@
 ## ii_LedArray Library for WS2812 LED Strips
 
+The ii_LedArray library is a comprehensive and versatile software solution designed for controlling WS2812 LED strips using ESP32 microcontrollers. It offers a wide range of features that cater to both basic and advanced LED strip manipulation, making it suitable for hobbyists, artists, and engineers alike.
+
+
 | ![Rainbow Effect](examples/ledarray_07_MoveRainbow/rainbow.gif) | ![Face Color Change](examples/ledarray_11_MultiFunctions/face_color_change.gif) |
 |:--------------------------------------------------------------:|:--------------------------------------------------------------:|
 | ![Ring Rainbow](examples/ledarray_11_MultiFunctions/ring_rainbow.gif) | ![Tail Color Change](examples/ledarray_11_MultiFunctions/tail_color_change.webp) |
-
-The ii_LedArray library is a comprehensive and versatile software solution designed for controlling WS2812 LED strips using ESP32 microcontrollers. It offers a wide range of features that cater to both basic and advanced LED strip manipulation, making it suitable for hobbyists, artists, and engineers alike.
 
 ### Key Features:
 
@@ -95,7 +96,17 @@ To use the `ii_LedArray` library in your Arduino sketches, include it at the top
 ```cpp
 #include <ii_LedArray.h>
 ```
- 
+
+## Wiring Diagram
+
+Below is the wiring diagram to help you set up your hardware. Connect your WS2812 LED strip to the ESP32 as follows:
+
+- **5V** from the LED strip to the **VIN** pin on the ESP32.
+- **GND** from the LED strip to the **GND** pin on the ESP32.
+- **DIN** (Data Input) from the LED strip to the **D4** pin on the ESP32.
+
+![Wiring Diagram](examples/wire_diagram_esp32_ws2812.jpg)
+
 
 ## Examples
 
