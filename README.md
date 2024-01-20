@@ -1,4 +1,4 @@
-## ii_LedArray Library for WS2812 LED Strips
+# ii_LedArray Library for WS2812 LED Strips
 
 The ii_LedArray library is a comprehensive and versatile software solution designed for controlling WS2812 LED strips using ESP32 microcontrollers. It offers a wide range of features that cater to both basic and advanced LED strip manipulation, making it suitable for hobbyists, artists, and engineers alike.
 
@@ -7,51 +7,79 @@ The ii_LedArray library is a comprehensive and versatile software solution desig
 |:--------------------------------------------------------------:|:--------------------------------------------------------------:|
 | ![Ring Rainbow](examples/ledarray_11_MultiFunctions/ring_rainbow.gif) | ![Tail Color Change](examples/ledarray_11_MultiFunctions/tail_color_change.webp) |
 
-### Key Features:
+## Key Features:
 
 1. **Dynamic Control**: Control individual LEDs or the entire strip with ease. Set specific colors to LEDs or create vibrant patterns across the strip.
 
-![Example GIF](examples/demos/01_Dynamic_Control.gif)
+      ```cpp
+      ledarray.setColor(index, color); // Set the color of a specific LED.
+      ledarray.setColor(index, red, green, blue); // Set the color of a specific LED using RGB values.
+
+      // Setting color without specifying an index applies to the entire strip.
+    
+      ledarray.setColor(color); // Set the color of all LEDs.
+      ledarray.setColor(red, green, blue); // Set the color of all LEDs using RGB values.
+      ```
+      ![Example GIF](examples/demos/01_Dynamic_Control.gif)
 
 2. **Color Transitions**: Implement smooth color transitions over time. This feature allows for visually appealing effects, ideal for creating mood lighting, visual alarms, or enhancing aesthetic projects.
+      ```cpp
+      start_time = millis() + 100; // Set transition to start after 100 milliseconds.
+      duration = 1000; // Transition will last for 1000 milliseconds.
 
-![Example GIF](examples/demos/02_Color_Transitions.gif)
+      ledarray.setColorTrans(index, color, start_time, duration); 
+      ledarray.setColorTrans(index, red, green, blue, start_time, duration);
+
+      // Setting color transitions without an index applies the effect to the entire strip.
+      ledarray.setColorTrans(color, start_time, duration);
+      ledarray.setColorTrans(red, green, blue, start_time, duration);
+
+      ```
+      ![Example GIF](examples/demos/02_Color_Transitions.gif)
 
 3. **Brightness Management**: Adjust the brightness of the entire strip or individual LEDs, providing flexibility in creating the desired lighting effect while managing power consumption.
-
-![Example GIF](examples/demos/03_brightness.gif)
+      ```cpp
+      ledarray.setBrightness(int bright); // Set brightness (0-100)
+      ```
+      ![Example GIF](examples/demos/03_brightness.gif)
 
 4. **Test Functions**: Includes built-in test functions to validate the functionality of the LED strip. This helps in quick troubleshooting and verification.
-
-![Example GIF](examples/demos/04_test.gif)
+      ```cpp
+      ledarray.test();               // Test the LED strip with RED, GREEN, BLUE
+      ledarray.testColors();         // Test the LED strip with all available colors
+      ledarray.testColors(bool dir); // Create a pattern with all available colors and shift it
+      ```
+      ![Example GIF](examples/demos/04_test.gif)
 
 5. **Pattern Shifting**: Move colors across the strip in a specified direction, enabling dynamic and engaging light movements, which can be synchronized with events, music, or actions.
-
-![Example GIF](examples/demos/05_shift.gif)
+      ```cpp
+      //loop
+        ledarray.move(true);
+        ledarray.update();
+      ```
+      ![Example GIF](examples/demos/05_shift.gif)
 
 6. **Real-time Updates**: The library supports real-time updates to the LED strip, ensuring immediate reflection of changes in lighting patterns or colors.
 
 7. **Efficient Memory Management**: Dynamic allocation and deallocation of memory for pixel data ensure efficient use of resources, crucial for microcontroller-based projects.
 
-8. **RMT Integration**: Utilizes the RMT (Remote Control) peripheral of the ESP32 for accurate timing control, essential for the precise operation of WS2812 LEDs.
+8. **Extensible Design**: Structured to be easily extendable for future enhancements, whether for personal projects or broader community contributions.
 
-9. **Extensible Design**: Structured to be easily extendable for future enhancements, whether for personal projects or broader community contributions.
-
-### Use Cases:
+## Use Cases:
 
 - **Home Automation**: Integrating LED strips into home automation for mood lighting, notifications, or aesthetic enhancements.
 - **Event Decorations**: Creating dynamic and programmable lighting setups for events, parties, or festive occasions.
 - **Interactive Art Installations**: Developing interactive art pieces where lighting plays a crucial role.
 - **Educational Purposes**: Teaching the basics of LED control, programming, and microcontroller interaction.
 
-### Getting Started:
+## Getting Started:
 
 This library is designed for ease of use. Simply include the `ii_LedArray.h` header in your Arduino sketch, initialize the library with your LED strip specifications, and you're ready to bring your LED projects to life.
 
 Whether you're a seasoned developer or a hobbyist starting with LEDs, the ii_LedArray library offers the functionality and ease of use to bring your lighting ideas to fruition.
 
 
-## Installation for Arduino IDE
+### Installation for Arduino IDE
 
 1. **Download the Library**:
    - Navigate to the `ii_LedArray` GitHub repository at [ii-lk/ii_LedArray](https://github.com/ii-lk/ii_LedArray.git).
@@ -66,7 +94,7 @@ Whether you're a seasoned developer or a hobbyist starting with LEDs, the ii_Led
    - In your Arduino sketch, go to `Sketch` > `Include Library` and select `ii_LedArray`.
    - This adds the necessary `#include` statements to your sketch.
 
-## Installation for Visual Studio Code with PlatformIO
+### Installation for Visual Studio Code with PlatformIO
 
 Both methods for Visual Studio Code with PlatformIO offer effective ways to include the `ii_LedArray` library in your projects. The first method gives you manual control over the library files, while the second method automates the dependency management through PlatformIO.
 
@@ -230,7 +258,7 @@ void loop() {
   ledarray.update();  // Update the LED array with the new color data
 }
 ```
-# More Examples
+## More Examples
 
 This folder contains example sketches that demonstrate how to use the ii_LedArray library to control WS2812 LED strips. Each example is self-contained and illustrates a specific feature or function of the library.
 
